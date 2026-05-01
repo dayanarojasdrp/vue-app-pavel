@@ -1,17 +1,15 @@
 <template>
   <header class="navbar">
     <nav class="nav-container">
-     <li>
-  <a href="#" class="logo-button">
-    <img src="@/assets/logo-iglesia.jpeg" alt="Logo Iglesia" />
-  </a>
-</li>
+      <a href="#" class="logo-button" @click.prevent="go('inicio')">
+        <img src="@/assets/logo-iglesia.jpeg" alt="Logo Iglesia" />
+      </a>
       <ul class="nav-links oval-group">
         <li>
   <a
     href="#"
     :class="{ active: activeItem === 'inicio' }"
-    @click.prevent="setActiveItem('inicio')"
+    @click.prevent="go('inicio')"
   >
     INICIO
   </a>
@@ -20,7 +18,7 @@
   <a
     href="#"
     :class="{ active: activeItem === 'sobre' }"
-    @click.prevent="setActiveItem('sobre')"
+    @click.prevent="go('paginas')"
   >
     SOBRE
   </a>
@@ -34,9 +32,9 @@
     CREENCIAS<span class="arrow">▼</span>
   </a>
  <ul v-if="activeDropdown === 'creencias'" class="submenu">
-  <li><a href="#" @click.prevent="setActiveItem('nu', 'creencias')">Nuestras cuatro verdades cardinales</a></li>
-  <li><a href="#" @click.prevent="setActiveItem('d', 'creencias')">Declaracion de verdades fundamentales</a></li>
-  <li><a href="#" @click.prevent="setActiveItem('n', 'creencias')">Normas doctrinales AD y otras declaraciones</a></li>
+  <li><a href="#" @click.prevent="go('paginas', 'creencias')">Nuestras cuatro verdades cardinales</a></li>
+  <li><a href="#" @click.prevent="go('paginas', 'creencias')">Declaración de verdades fundamentales</a></li>
+  <li><a href="#" @click.prevent="go('paginas', 'creencias')">Normas doctrinales y declaraciones</a></li>
 </ul>
 
 </li>
@@ -49,12 +47,12 @@
     MINISTERIOS<span class="arrow">▼</span>
   </a>
 <ul v-if="activeDropdown === 'ministerios'" class="submenu">
-  <li><a href="#" @click.prevent="setActiveItem('todos', 'ministerios')">Todos los ministerios</a></li>
-  <li><a href="#" @click.prevent="setActiveItem('adultos', 'ministerios')">Adultos y familias</a></li>
-  <li><a href="#" @click.prevent="setActiveItem('jovenes', 'ministerios')">Jovenes</a></li>
-  <li><a href="#" @click.prevent="setActiveItem('ninos', 'ministerios')">Niños</a></li>
-  <li><a href="#" @click.prevent="setActiveItem('lideres', 'ministerios')">Lideres y ministros</a></li>
-  <li><a href="#" @click.prevent="setActiveItem('educacion', 'ministerios')">Educacion </a></li>
+  <li><a href="#" @click.prevent="go('ministerios', 'ministerios')">Todos los ministerios</a></li>
+  <li><a href="#" @click.prevent="go('ministerios', 'ministerios')">Adultos y familias</a></li>
+  <li><a href="#" @click.prevent="go('ministerios', 'ministerios')">Jóvenes</a></li>
+  <li><a href="#" @click.prevent="go('ministerios', 'ministerios')">Niños</a></li>
+  <li><a href="#" @click.prevent="go('ministerios', 'ministerios')">Líderes y ministros</a></li>
+  <li><a href="#" @click.prevent="go('ministerios', 'ministerios')">Educación</a></li>
 </ul>
 
 
@@ -63,7 +61,7 @@
   <a
     href="#"
     :class="{ active: activeItem === 'misiones' }"
-    @click.prevent="setActiveItem('misiones')"
+    @click.prevent="go('misiones')"
   >
     MISIONES
   </a>
@@ -77,11 +75,11 @@
     RECURSOS<span class="arrow">▼</span>
   </a>
  <ul v-if="activeDropdown === 'recursos' " class="submenu">
-  <li><a href="#" @click.prevent="setActiveItem('pami', 'recursos')">Para Ministerios</a></li>
-  <li><a href="#" @click.prevent="setActiveItem('paig', 'recursos')">Para Iglesias</a></li>
-  <li><a href="#" @click.prevent="setActiveItem('padis', 'recursos')">Para distritos</a></li>
-    <li><a href="#" @click.prevent="setActiveItem('desc', 'recursos')">Descargas</a></li>
-      <li><a href="#" @click.prevent="setActiveItem('masre', 'recursos')">Mas recursos</a></li>
+  <li><a href="#" @click.prevent="go('recursos', 'recursos')">Para Ministerios</a></li>
+  <li><a href="#" @click.prevent="go('recursos', 'recursos')">Para Iglesias</a></li>
+  <li><a href="#" @click.prevent="go('recursos', 'recursos')">Para distritos</a></li>
+    <li><a href="#" @click.prevent="go('recursos', 'recursos')">Descargas</a></li>
+      <li><a href="#" @click.prevent="go('recursos', 'recursos')">Más recursos</a></li>
 </ul>
 
 </li>
@@ -89,7 +87,7 @@
   <a
      href="#"
     :class="{ active: activeItem === 'donar' }"
-    @click.prevent="setActiveItem('donar')"
+    @click.prevent="go('contacto')"
   >
     DONAR
   </a>
@@ -98,7 +96,7 @@
   <a
     href="#"
     :class="{ active: activeItem === 'contacto' }"
-    @click.prevent="setActiveItem('contacto')"
+    @click.prevent="go('contacto')"
   >
     CONTACTO
   </a>
@@ -111,6 +109,7 @@
 <script>
 export default {
   name: 'NavBar',
+  emits: ['navigate'],
   data() {
     return {
       activeItem: null,
@@ -118,6 +117,10 @@ export default {
     }
   },
   methods: {
+ go(view, parent = null) {
+  this.setActiveItem(view, parent);
+  this.$emit('navigate', view);
+ },
  setActiveItem(name, parent = null) {
   // Si la opción tiene un padre (viene de un submenú), marcamos el padre como activo
   this.activeItem = parent || name;
@@ -149,7 +152,7 @@ export default {
   mounted() {
     document.addEventListener('click', this.handleClickOutside);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('click', this.handleClickOutside);
   }
 }
@@ -163,7 +166,7 @@ export default {
 .navbar {
   background-color: #fff;
   border-bottom: 2px solid #eaeaea;
-  padding: 1rem 2rem;
+  padding: 0.8rem clamp(1rem, 4vw, 3rem);
 }
 
 .nav-container {
@@ -240,6 +243,7 @@ export default {
   margin: 0;
   list-style: none; /* elimina los puntos */
   z-index: 1000;
+  min-width: 230px;
 }
 .nav-links li a,
 .dropdown > a,
@@ -273,23 +277,43 @@ export default {
 }
 
 .logo-button img {
-  height: 35px;         /* ajusta según tu diseño */
+  border-radius: 999px;
+  height: 42px;
   width: auto;
-  object-fit: cover;         /* recorta si la imagen es más alta */
-  object-position: center;   
+  object-fit: cover;
+  object-position: center;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
 
 .logo-button img:hover {
-  transform: scale(1.10); /* efecto sutil al pasar el mouse */
+  transform: scale(1.08);
 }
 .navbar {
   position: fixed;
-  top: 40px; /* ajusta según la altura del TopBar */
+  top: 36px;
   left: 0;
   width: 100%;
   z-index: 999;
+}
+
+@media (max-width: 980px) {
+  .navbar {
+    top: 118px;
+    padding: 0.6rem 1rem;
+  }
+
+  .nav-container {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .oval-group {
+    border-radius: 12px;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
 }
 
 </style>

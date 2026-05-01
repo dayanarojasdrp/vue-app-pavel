@@ -1,0 +1,62 @@
+<script>
+import { formatDate, imageUrl, itemBody, itemDate, itemMeta, itemTitle } from '../config/content'
+
+export default {
+  name: 'PublicSection',
+  props: {
+    config: {
+      type: Object,
+      required: true
+    },
+    items: {
+      type: Array,
+      required: true
+    },
+    error: {
+      type: String,
+      default: ''
+    }
+  },
+  emits: ['refresh'],
+  methods: {
+    formatDate,
+    imageUrl,
+    title(item) {
+      return itemTitle(item, this.config.fields)
+    },
+    body(item) {
+      return itemBody(item, this.config.fields)
+    },
+    meta(item) {
+      return itemMeta(item, this.config.fields)
+    },
+    date(item) {
+      return itemDate(item, this.config.fields)
+    }
+  }
+}
+</script>
+
+<template>
+  <section class="content-section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow"><i :class="['fa-solid', config.icon]"></i> {{ config.title }}</p>
+        <h2>{{ config.description }}</h2>
+      </div>
+      <button class="secondary" @click="$emit('refresh')">Actualizar</button>
+    </div>
+
+    <p v-if="error" class="status">{{ error }}</p>
+    <div class="content-grid">
+      <article v-for="item in items" :key="item.id || item.slug" class="content-card">
+        <img v-if="imageUrl(item)" :src="imageUrl(item)" :alt="title(item)" />
+        <div v-else class="image-fallback small"><i :class="['fa-solid', config.icon]"></i></div>
+        <span v-if="meta(item)" class="tag">{{ meta(item) }}</span>
+        <h3>{{ title(item) }}</h3>
+        <p>{{ body(item) }}</p>
+        <small v-if="date(item)">{{ formatDate(date(item)) }}</small>
+      </article>
+    </div>
+  </section>
+</template>

@@ -1,50 +1,73 @@
 <template>
   <div class="top-bar">
     <div class="social-icons">
-      <a href="#"><i class="fab fa-facebook-f"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-youtube"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
     </div>
 
     <div class="search-box">
-      <input type="text" placeholder="BUSCAR" />
-  <button class="search-button">
-    <i class="fas fa-search"></i>
-  </button>
+      <input v-model="search" type="text" placeholder="BUSCAR" @keyup.enter="submitSearch" />
+      <button class="search-button" @click="submitSearch" aria-label="Buscar">
+        <i class="fas fa-search"></i>
+      </button>
     </div>
 
     <div class="extra-links">
-      <a href="#">NOTICIAS</a>
-      <a href="#">EVENTOS</a>
+      <a href="#" @click.prevent="$emit('navigate', 'noticias')">NOTICIAS</a>
+      <a href="#" @click.prevent="$emit('navigate', 'eventos')">EVENTOS</a>
       <a href="#">TIENDA</a>
       <a href="#">INGLES</a>
+      <a href="#" @click.prevent="$emit('navigate', 'panel')">PANEL</a>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'TopBar'
+  name: 'TopBar',
+  emits: ['navigate', 'search'],
+  data() {
+    return {
+      search: ''
+    }
+  },
+  methods: {
+    submitSearch() {
+      const term = this.search.trim();
+
+      if (term) {
+        this.$emit('search', term);
+      }
+    }
+  }
 }
 </script>
 
 <style scoped>
 .top-bar {
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0.4rem 0.6rem;
-  gap: 0.8rem;   
   background-color: #000000;
-  border-bottom: 1px solid #ddd;
-  font-size: 13px
+  box-sizing: border-box;
+  color: #fff;
+  display: flex;
+  font-family: sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  gap: 0.8rem;
+  justify-content: space-between;
+  left: 0;
+  padding: 0.42rem clamp(1rem, 4vw, 3rem);
+  position: fixed;
+  text-transform: none;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
 
-  }
 .social-icons a {
   margin-right: 0.5rem;
-  color: #070606;
+  color: #ffffff;
   text-decoration: none;
   font-size: 14px;
 }
@@ -56,7 +79,7 @@ export default {
 }
 
 .search-box input {
-   background-color: #000;
+  background-color: #000;
   color: #fff;
   border: none;
   border-bottom: 1px solid #fff;
@@ -73,7 +96,7 @@ export default {
   border: none;
   margin-left: 0.3rem;
   cursor: pointer;
-  color: #333;
+  color: #fff;
 }
 
 .extra-links a {
@@ -82,14 +105,6 @@ export default {
   text-decoration: none;
   font-size: 13px;
 }
-.top-bar {
-  font-family: sans-serif;     /* fuente estándar y legible */
-  font-size: 13px;             /* tamaño moderado */
-  font-weight: normal;         /* sin negrita innecesaria */
-  text-transform: none;        /* evita que se conviertan en mayúsculas */
-  color: #333;                 /* color gris oscuro, legible sobre fondo claro */
-}
-
 .search-button {
   background: none;
   border: none;
@@ -99,11 +114,24 @@ export default {
   padding-bottom: 0.2rem;
   border-bottom: 1px solid #fff;
 }
-.top-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
+@media (max-width: 780px) {
+  .top-bar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .extra-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .extra-links a {
+    margin-left: 0;
+  }
+
+  .search-box input {
+    width: 100%;
+  }
 }
 </style>
