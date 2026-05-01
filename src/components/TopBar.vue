@@ -9,15 +9,15 @@
     <div class="search-box">
       <input v-model="search" type="text" placeholder="BUSCAR" @keyup.enter="submitSearch" />
       <button class="search-button" @click="submitSearch" aria-label="Buscar">
-        <i class="fas fa-search"></i>
+        <span class="search-icon"></span>
       </button>
     </div>
 
     <div class="extra-links">
       <a href="#" @click.prevent="$emit('navigate', 'noticias')">NOTICIAS</a>
       <a href="#" @click.prevent="$emit('navigate', 'eventos')">EVENTOS</a>
-      <a href="#">TIENDA</a>
-      <a href="#">INGLES</a>
+      <a href="#" @click.prevent="$emit('navigate', 'recursos')">RECURSOS</a>
+      <a href="#" @click.prevent="$emit('navigate', 'ministerios')">MINISTERIOS</a>
       <a href="#" @click.prevent="$emit('navigate', 'panel')">PANEL</a>
     </div>
   </div>
@@ -48,6 +48,7 @@ export default {
 .top-bar {
   align-items: center;
   background-color: #000000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   box-sizing: border-box;
   color: #fff;
   display: flex;
@@ -57,7 +58,8 @@ export default {
   gap: 0.8rem;
   justify-content: space-between;
   left: 0;
-  padding: 0.42rem clamp(1rem, 4vw, 3rem);
+  height: 76px;
+  padding: 0 clamp(1.25rem, 3vw, 4rem);
   position: fixed;
   text-transform: none;
   top: 0;
@@ -66,16 +68,20 @@ export default {
 }
 
 .social-icons a {
-  margin-right: 0.5rem;
+  margin-right: 1.45rem;
   color: #ffffff;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 1.42rem;
 }
 
 .search-box {
   display: flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.55rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 390px;
+  width: 26vw;
 }
 
 .search-box input {
@@ -83,11 +89,12 @@ export default {
   color: #fff;
   border: none;
   border-bottom: 1px solid #fff;
-  padding: 0.3rem 0.6rem;
-  font-size: 13px;
+  padding: 0.32rem 0.6rem;
+  font-size: 1.25rem;
   outline: none;
   border-radius: 0;
-  width: 160px;
+  width: 100%;
+  text-transform: uppercase;
 }
 
 
@@ -99,11 +106,34 @@ export default {
   color: #fff;
 }
 
+.search-icon {
+  border: 2px solid #fff;
+  border-radius: 999px;
+  display: inline-block;
+  height: 22px;
+  position: relative;
+  width: 22px;
+}
+
+.search-icon::after {
+  background: #fff;
+  border-radius: 999px;
+  bottom: -7px;
+  content: "";
+  height: 10px;
+  position: absolute;
+  right: -6px;
+  transform: rotate(-45deg);
+  width: 2px;
+}
+
 .extra-links a {
-  margin-left: 1rem;
+  margin-left: clamp(1.25rem, 2.4vw, 2.7rem);
   color: #ffffff;
   text-decoration: none;
-  font-size: 13px;
+  font-size: clamp(0.9rem, 1.3vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
 }
 .search-button {
   background: none;
@@ -118,6 +148,10 @@ export default {
   .top-bar {
     align-items: stretch;
     flex-direction: column;
+    height: 128px;
+    justify-content: center;
+    padding-bottom: 0.65rem;
+    padding-top: 0.65rem;
   }
 
   .extra-links {
@@ -131,6 +165,12 @@ export default {
   }
 
   .search-box input {
+    width: 100%;
+  }
+
+  .search-box {
+    margin: 0;
+    max-width: none;
     width: 100%;
   }
 }

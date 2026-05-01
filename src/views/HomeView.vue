@@ -60,6 +60,7 @@ export default {
   emits: ['navigate', 'search', 'update:contactForm', 'submit-contact'],
   data() {
     return {
+      PUBLIC_ENDPOINTS,
       homeSearch: '',
       stats: [
         { value: '1', label: 'iglesia' },
@@ -92,10 +93,10 @@ export default {
 <template>
   <section class="hero-section">
     <div class="hero-copy">
-      <p class="eyebrow">Centro Misionero Escambray</p>
-      <h1>Bienvenidos al Centro Misionero Escambray</h1>
-      <h2>Comprometidos con la Biblia, empoderados por el Espíritu, activos en las misiones</h2>
-      <p>Únete a nuestra misión de ver una iglesia saludable, llena del Espíritu y presente en cada comunidad.</p>
+      <p class="eyebrow">Luz en la Montaña</p>
+      <h1>Centro Misionero Escambray</h1>
+      <h2>Una iglesia comprometida con la Biblia, empoderada por el Espíritu y activa en las misiones.</h2>
+      <p>Desde el Escambray anunciamos esperanza, formamos discípulos y servimos a nuestra comunidad con una fe viva.</p>
       <div class="hero-actions">
         <button @click="$emit('navigate', 'paginas')">
           <i class="fa-solid fa-circle-info"></i>
@@ -105,6 +106,15 @@ export default {
           <i class="fa-solid fa-calendar-days"></i>
           Próximos eventos
         </button>
+      </div>
+    </div>
+    <div class="hero-brand-panel">
+      <div class="mountain-mark">
+        <img src="@/assets/logo-cme.jpg" alt="Luz en la Montaña Centro Misionero Escambray" />
+      </div>
+      <div class="hero-verse">
+        <span>Mateo 5:14</span>
+        <strong>Vosotros sois la luz del mundo.</strong>
       </div>
     </div>
   </section>
@@ -132,7 +142,7 @@ export default {
 
   <section class="about-section">
     <div class="section-media media-window">
-      <img src="@/assets/logo-iglesia.jpeg" alt="Centro Misionero Escambray" />
+      <img src="@/assets/logo-cme.jpg" alt="Centro Misionero Escambray" />
     </div>
     <div class="section-copy">
       <p class="eyebrow"><i class="fa-solid fa-church"></i> Quiénes somos</p>
@@ -214,9 +224,9 @@ export default {
   />
 
   <footer class="site-footer">
-    <img src="@/assets/logo-iglesia.jpeg" alt="Centro Misionero Escambray" />
+    <img src="@/assets/logo-cme.jpg" alt="Centro Misionero Escambray" />
     <div>
-      <strong>Centro Misionero Escambray</strong>
+      <strong>Luz en la Montaña</strong>
       <span>Comprometidos con la Biblia, empoderados por el Espíritu, activos en las misiones.</span>
     </div>
     <button class="secondary" @click="$emit('navigate', 'panel')">Acceso pastoral</button>

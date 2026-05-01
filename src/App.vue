@@ -303,27 +303,48 @@ export default {
 <style>
 .site-shell {
   min-height: 100vh;
-  background: #f5f2ed;
-  color: #171717;
+  background:
+    radial-gradient(circle at top left, rgba(244, 211, 72, 0.16), transparent 32rem),
+    linear-gradient(180deg, #fbfaf6 0%, #f2efe8 46%, #ffffff 100%);
+  color: #162119;
 }
 
 .main-content {
-  margin-top: 112px;
+  margin-top: 192px;
 }
 
 .hero-section {
   align-items: center;
   background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.22)),
-    url('@/assets/logo-iglesia.jpeg') center / cover;
+    linear-gradient(135deg, rgba(9, 36, 22, 0.97), rgba(14, 58, 33, 0.86)),
+    radial-gradient(circle at 82% 18%, rgba(248, 211, 55, 0.38), transparent 18rem);
   color: #fff;
-  display: flex;
-  min-height: calc(100vh - 112px);
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.8fr);
+  min-height: calc(100vh - 192px);
   padding: 4rem clamp(1rem, 6vw, 6rem);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::after {
+  background:
+    linear-gradient(135deg, transparent 52%, rgba(255, 255, 255, 0.08) 52%),
+    linear-gradient(45deg, transparent 54%, rgba(255, 255, 255, 0.06) 54%);
+  bottom: -4rem;
+  content: "";
+  height: 20rem;
+  left: 0;
+  position: absolute;
+  right: 0;
+  transform: skewY(-4deg);
 }
 
 .hero-copy {
   max-width: 840px;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-copy h1,
@@ -335,13 +356,18 @@ export default {
 }
 
 .hero-copy h1 {
-  font-size: clamp(2.4rem, 6vw, 5.8rem);
+  font-size: clamp(3rem, 7vw, 7.8rem);
+  font-weight: 950;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
   max-width: 980px;
+  text-transform: uppercase;
 }
 
 .hero-copy h2 {
-  font-size: clamp(1.05rem, 2vw, 1.6rem);
-  font-weight: 600;
+  color: #f6e86f;
+  font-size: clamp(1.2rem, 2vw, 1.85rem);
+  font-weight: 850;
   margin-top: 1rem;
   max-width: 780px;
 }
@@ -353,6 +379,62 @@ export default {
   max-width: 660px;
 }
 
+.hero-copy p:not(.eyebrow) {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 1.18rem;
+}
+
+.hero-brand-panel {
+  align-self: center;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.46);
+  border-radius: 8px;
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.34);
+  color: #162119;
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1rem, 3vw, 2rem);
+  position: relative;
+  z-index: 1;
+}
+
+.mountain-mark {
+  background: #fff;
+  border-radius: 8px;
+  display: grid;
+  min-height: 310px;
+  overflow: hidden;
+  place-items: center;
+}
+
+.mountain-mark img {
+  display: block;
+  max-height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.hero-verse {
+  align-items: center;
+  background: #101812;
+  border-radius: 8px;
+  color: #fff;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.hero-verse span {
+  color: #f3d23f;
+  font-weight: 900;
+}
+
+.hero-verse strong {
+  font-weight: 850;
+  text-align: right;
+}
+
 .eyebrow {
   align-items: center;
   display: flex;
@@ -362,6 +444,11 @@ export default {
   letter-spacing: 0;
   margin: 0 0 0.8rem;
   text-transform: uppercase;
+}
+
+.hero-section .eyebrow {
+  color: #f3d23f;
+  font-size: 0.9rem;
 }
 
 .hero-actions,
@@ -377,8 +464,8 @@ export default {
 
 button {
   align-items: center;
-  background: #0f0f0f;
-  border: 1px solid #0f0f0f;
+  background: #101812;
+  border: 1px solid #101812;
   border-radius: 8px;
   color: #fff;
   cursor: pointer;
@@ -392,7 +479,7 @@ button {
 
 button.secondary {
   background: #fff;
-  color: #111;
+  color: #101812;
 }
 
 button:disabled {
@@ -419,9 +506,16 @@ button:disabled {
 
 .home-search-band {
   align-items: center;
+  background: #fff;
+  border: 1px solid rgba(16, 24, 18, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 18px 60px rgba(24, 31, 27, 0.08);
   display: grid;
   gap: 1.5rem;
   grid-template-columns: minmax(0, 1fr) minmax(280px, 520px);
+  margin-top: -2.6rem;
+  position: relative;
+  z-index: 2;
 }
 
 .home-search-band p {
@@ -436,7 +530,7 @@ button:disabled {
 }
 
 .home-search {
-  background: #111;
+  background: #101812;
   border-radius: 999px;
   display: flex;
   gap: 0.5rem;
@@ -460,7 +554,9 @@ button:disabled {
 }
 
 .stats-band {
-  background: #111;
+  background:
+    linear-gradient(135deg, #101812, #123c25),
+    radial-gradient(circle at top right, rgba(243, 210, 63, 0.32), transparent 20rem);
   color: #fff;
   display: grid;
   gap: 1rem;
@@ -502,21 +598,26 @@ button:disabled {
   background: #fff;
   border: 1px solid #e4ded5;
   border-radius: 8px;
+  display: grid;
   min-height: 430px;
   overflow: hidden;
+  place-items: center;
+  padding: 2rem;
 }
 
 .media-window img {
   display: block;
-  height: 100%;
-  min-height: 430px;
-  object-fit: cover;
+  height: auto;
+  max-height: 420px;
+  object-fit: contain;
   width: 100%;
 }
 
 .section-copy h2,
 .section-heading h2 {
   font-size: clamp(2rem, 4vw, 4.2rem);
+  font-weight: 950;
+  letter-spacing: -0.025em;
 }
 
 .section-heading,
@@ -545,8 +646,9 @@ button:disabled {
 
 .feature-card {
   background: #fff;
-  border: 1px solid #e2ded7;
+  border: 1px solid rgba(16, 24, 18, 0.1);
   border-radius: 8px;
+  box-shadow: 0 18px 50px rgba(24, 31, 27, 0.08);
   display: grid;
   overflow: hidden;
 }
@@ -558,7 +660,9 @@ button:disabled {
 .feature-card img,
 .image-fallback {
   aspect-ratio: 16 / 10;
-  background: #202020;
+  background:
+    linear-gradient(135deg, #112419, #163d27),
+    radial-gradient(circle at 70% 20%, rgba(243, 210, 63, 0.32), transparent 14rem);
   color: #fff;
   display: grid;
   font-size: 2rem;
@@ -582,6 +686,7 @@ button:disabled {
 .stack-item h3,
 .mini-list h3 {
   font-size: 1.24rem;
+  font-weight: 900;
   line-height: 1.22;
   margin: 0.65rem 0;
 }
@@ -596,7 +701,9 @@ button:disabled {
 }
 
 .split-section {
-  background: #111;
+  background:
+    linear-gradient(135deg, #101812, #123c25),
+    radial-gradient(circle at bottom left, rgba(243, 210, 63, 0.24), transparent 20rem);
   color: #fff;
   max-width: none;
   padding-left: clamp(1rem, 7vw, 6rem);
@@ -619,11 +726,13 @@ button:disabled {
   border-radius: 8px;
   color: #111;
   padding: 1rem;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
 }
 
 .date-pill,
 .tag {
-  background: #e8eef0;
+  background: #eef7ef;
+  color: #184d2c;
   border-radius: 999px;
   display: inline-flex;
   font-size: 0.75rem;
@@ -645,8 +754,9 @@ button:disabled {
 .content-editor,
 .contacts-panel {
   background: #fff;
-  border: 1px solid #e2ded7;
+  border: 1px solid rgba(16, 24, 18, 0.1);
   border-radius: 8px;
+  box-shadow: 0 18px 50px rgba(24, 31, 27, 0.08);
   padding: 1rem;
 }
 
@@ -656,7 +766,7 @@ button:disabled {
 
 .tile-icon {
   align-items: center;
-  background: #111;
+  background: linear-gradient(135deg, #133f26, #101812);
   border-radius: 999px;
   color: #fff;
   display: inline-flex;
@@ -672,7 +782,7 @@ button:disabled {
 
 .resource-panel {
   background: #fff;
-  border: 1px solid #e2ded7;
+  border: 1px solid rgba(16, 24, 18, 0.1);
   border-radius: 8px;
   padding: 2rem;
 }
@@ -687,7 +797,9 @@ button:disabled {
 }
 
 .contact-footer-section {
-  background: #161616;
+  background:
+    linear-gradient(135deg, #101812, #0f2f1f),
+    radial-gradient(circle at 75% 25%, rgba(243, 210, 63, 0.22), transparent 18rem);
   color: #fff;
   max-width: none;
   padding-left: clamp(1rem, 7vw, 6rem);
@@ -797,10 +909,10 @@ textarea {
 }
 
 .site-footer img {
-  border-radius: 999px;
-  height: 52px;
-  object-fit: cover;
-  width: 52px;
+  border-radius: 8px;
+  height: 68px;
+  object-fit: contain;
+  width: 112px;
 }
 
 .site-footer div {
@@ -931,11 +1043,16 @@ td small {
 
 @media (max-width: 980px) {
   .main-content {
-    margin-top: 226px;
+    margin-top: 294px;
   }
 
   .hero-section {
-    min-height: calc(100vh - 226px);
+    grid-template-columns: 1fr;
+    min-height: calc(100vh - 294px);
+  }
+
+  .hero-brand-panel {
+    max-width: 560px;
   }
 
   .home-search-band,
@@ -971,7 +1088,7 @@ td small {
 
 @media (max-width: 560px) {
   .main-content {
-    margin-top: 252px;
+    margin-top: 330px;
   }
 
   .stats-band {

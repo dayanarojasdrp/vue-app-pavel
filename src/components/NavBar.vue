@@ -2,7 +2,8 @@
   <header class="navbar">
     <nav class="nav-container">
       <a href="#" class="logo-button" @click.prevent="go('inicio')">
-        <img src="@/assets/logo-iglesia.jpeg" alt="Logo Iglesia" />
+        <span class="brand-monogram" aria-hidden="true">CME</span>
+        <span class="sr-only">Centro Misionero Escambray</span>
       </a>
       <ul class="nav-links oval-group">
         <li>
@@ -165,15 +166,19 @@ export default {
 <style scoped>
 .navbar {
   background-color: #fff;
-  border-bottom: 2px solid #eaeaea;
-  padding: 0.8rem clamp(1rem, 4vw, 3rem);
+  border-bottom: 1px solid rgba(16, 24, 20, 0.1);
+  box-shadow: none;
+  min-height: 116px;
+  padding: 1.05rem clamp(1.25rem, 3vw, 4rem);
 }
 
 .nav-container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  gap: 2rem;
+  gap: clamp(2rem, 5vw, 7rem);
+  margin: 0 auto;
+  max-width: 1440px;
 }
 
 .logo {
@@ -185,18 +190,19 @@ export default {
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 0.4rem;
+  gap: 0.25rem;
   margin: 0;
   padding: 0;
 }
 
 .nav-links li a {
   font-family: sans-serif;
-  font-size: 13px;
-  font-weight: normal;
-  color: #333;
+  font-size: clamp(0.86rem, 1.2vw, 1.18rem);
+  font-weight: 800;
+  color: #162119;
   text-decoration: none;
   transition: color 0.3s ease;
+  text-transform: uppercase;
 }
 
 .nav-links li a:hover {
@@ -205,9 +211,9 @@ export default {
 
 .dropdown > a {
   font-family: sans-serif;
-  font-size: 13px;
-  font-weight: normal;
-  color: #000;
+  font-size: clamp(0.86rem, 1.2vw, 1.18rem);
+  font-weight: 800;
+  color: #162119;
   text-decoration: none;
   padding: 0.5rem 1rem;
   display: flex;
@@ -217,7 +223,7 @@ export default {
 .submenu li a {
   font-family: sans-serif;
   font-size: 13px;
-  font-weight: normal;
+  font-weight: 700;
   color: #000;
   text-decoration: none;
   padding: 0.4rem 1rem;
@@ -237,8 +243,9 @@ export default {
   top: 100%; /* justo debajo del enlace */
   left: 0;
   background-color: #fff;
-  border: 1px solid #eaeaea;
+  border: 1px solid rgba(16, 24, 20, 0.12);
   border-radius: 8px;  
+  box-shadow: 0 20px 40px rgba(16, 24, 20, 0.14);
   padding: 0;
   margin: 0;
   list-style: none; /* elimina los puntos */
@@ -249,9 +256,9 @@ export default {
 .dropdown > a,
 .submenu li a {
   background-color: transparent;
-  color: #000;
+  color: #162119;
   text-decoration: none;
-  padding: 0.3rem 0.8rem;
+  padding: 0.7rem clamp(0.8rem, 1.25vw, 1.35rem);
   display: block;
   border-radius: 999px; /* ← esto hace que el fondo sea ovalado */
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -268,51 +275,93 @@ export default {
 }
 
 .oval-group {
-  border: 1px solid #000;
+  border: 2px solid rgba(16, 24, 20, 0.82);
   border-radius: 999px;
-  padding: 0.2rem 0.6rem;
+  padding: 0.35rem clamp(0.4rem, 1vw, 1rem);
   display: flex;
-  gap: 0.8rem;
+  gap: clamp(0.05rem, 0.4vw, 0.35rem);
   background-color: #fff;
+  flex: 1;
+  justify-content: space-between;
+  max-width: none;
 }
 
-.logo-button img {
+.logo-button {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0;
+  text-decoration: none;
+}
+
+.brand-monogram {
+  color: #050505;
+  display: inline-block;
+  font-size: clamp(3rem, 5.4vw, 5.7rem);
+  font-weight: 950;
+  letter-spacing: -0.15em;
+  line-height: 0.82;
+  padding-right: 0.35em;
+  position: relative;
+}
+
+.brand-monogram::after {
+  background: linear-gradient(180deg, #f5d740, #0a6d32);
   border-radius: 999px;
-  height: 42px;
-  width: auto;
-  object-fit: cover;
-  object-position: center;
-  cursor: pointer;
-  transition: transform 0.2s ease;
+  bottom: 0.03em;
+  content: "";
+  height: 0.5em;
+  left: 0.45em;
+  position: absolute;
+  transform: rotate(18deg);
+  width: 0.08em;
 }
 
-.logo-button img:hover {
-  transform: scale(1.08);
+.sr-only {
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
 }
 .navbar {
   position: fixed;
-  top: 36px;
+  top: 76px;
   left: 0;
   width: 100%;
   z-index: 999;
 }
 
+@media (max-width: 1220px) {
+  .nav-container {
+    gap: 1.25rem;
+  }
+
+  .nav-links li a,
+  .dropdown > a,
+  .submenu li a {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
 @media (max-width: 980px) {
   .navbar {
-    top: 118px;
-    padding: 0.6rem 1rem;
+    top: 76px;
+    padding: 0.8rem 1rem;
   }
 
   .nav-container {
     align-items: flex-start;
     flex-direction: column;
-    gap: 0.8rem;
   }
 
   .oval-group {
-    border-radius: 12px;
+    border-radius: 22px;
     flex-wrap: wrap;
-    gap: 0.35rem;
+    justify-content: flex-start;
+    max-width: 100%;
+    width: 100%;
   }
 }
 
