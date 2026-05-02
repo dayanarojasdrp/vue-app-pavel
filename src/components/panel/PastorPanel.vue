@@ -3,6 +3,8 @@ import api from '../../services/api'
 import { ADMIN_CONFIG, errorMessage, formatDate, normalizeList } from '../../config/content'
 import ContentEditor from './ContentEditor.vue'
 
+const CONFIGURED_ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL || 'admin@example.com'
+
 export default {
   name: 'PastorPanel',
   components: {
@@ -30,6 +32,7 @@ export default {
   data() {
     return {
       ADMIN_CONFIG,
+      CONFIGURED_ADMIN_EMAIL,
       activeKey: 'noticias',
       contactos: [],
       contactsLoading: false,
@@ -37,11 +40,14 @@ export default {
     }
   },
   computed: {
+    isConfiguredAdmin() {
+      return this.user?.email === CONFIGURED_ADMIN_EMAIL
+    },
     canManagePrivate() {
-      return ['admin', 'pastor'].includes(this.user?.role)
+      return this.isConfiguredAdmin
     },
     canManageContent() {
-      return ['admin', 'pastor', 'editor'].includes(this.user?.role)
+      return this.isConfiguredAdmin
     },
     readonly() {
       return !this.canManageContent
@@ -79,7 +85,7 @@ export default {
     },
     async markContact(contact, estado = 'leido') {
       try {
-        await api.put(`/contactos/${contact.id}`, { estado })
+        await api.patch(`/contactos/${contact.id}`, { estado })
         await this.fetchContacts()
       } catch (error) {
         this.contactsError = errorMessage(error)
@@ -103,7 +109,7 @@ export default {
   <section class="panel-section">
     <div class="section-heading">
       <div>
-        <p class="eyebrow"><i class="fa-solid fa-lock"></i> Panel pastoral</p>
+        <p class="eyebrow"><span class="eyebrow-mark"></span> Panel pastoral</p>
         <h2>Publicación y administración de contenido</h2>
       </div>
       <button v-if="user" class="secondary" @click="$emit('logout')">Cerrar sesión</button>
@@ -113,7 +119,7 @@ export default {
       <input :value="login.email" required type="email" placeholder="Email" @input="updateLogin('email', $event.target.value)" />
       <input :value="login.password" required type="password" placeholder="Contraseña" @input="updateLogin('password', $event.target.value)" />
       <button :disabled="loginLoading">
-        <i class="fa-solid fa-right-to-bracket"></i>
+        <span class="button-mark">→</span>
         {{ loginLoading ? 'Entrando...' : 'Entrar' }}
       </button>
       <p v-if="loginError" class="error">{{ loginError }}</p>
@@ -123,6 +129,8 @@ export default {
       <aside class="admin-sidebar">
         <strong>{{ user.name }}</strong>
         <span>{{ user.email }} · {{ user.role }}</span>
+        <small v-if="isConfiguredAdmin">Admin configurado</small>
+        <small v-else>Sin permiso de administración</small>
         <button
           v-for="(config, key) in ADMIN_CONFIG"
           :key="key"
@@ -141,7 +149,9 @@ export default {
       </aside>
 
       <div class="admin-content">
-        <p v-if="!canManageContent" class="error">Tu rol de usuario es de lectura. No puedes publicar ni modificar contenido.</p>
+        <p v-if="!canManageContent" class="error">
+          Solo {{ CONFIGURED_ADMIN_EMAIL }} puede administrar este panel. Este usuario puede iniciar sesión, pero no publicar ni modificar contenido.
+        </p>
 
         <ContentEditor
           v-if="activeKey !== 'contactos'"
@@ -154,7 +164,7 @@ export default {
         <div v-else class="contacts-panel">
           <div class="editor-header">
             <div>
-              <p class="eyebrow"><i class="fa-solid fa-envelope"></i> Contactos</p>
+              <p class="eyebrow"><span class="eyebrow-mark"></span> Contactos</p>
               <h3>Mensajes recibidos</h3>
             </div>
             <button class="secondary" @click="fetchContacts">Actualizar</button>

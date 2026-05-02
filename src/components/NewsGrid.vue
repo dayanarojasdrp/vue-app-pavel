@@ -37,7 +37,7 @@ export default {
   <div class="featured-layout">
     <article v-for="(item, index) in items" :key="item.id || item.slug" :class="['feature-card', { large: index === 0 }]">
       <img v-if="imageUrl(item)" :src="imageUrl(item)" :alt="title(item)" />
-      <div v-else class="image-fallback"><i class="fa-solid fa-cross"></i></div>
+      <div v-else class="image-fallback"><span>CME</span></div>
       <div class="feature-body">
         <span v-if="meta(item)" class="tag">{{ meta(item) }}</span>
         <h3>{{ title(item) }}</h3>

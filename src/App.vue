@@ -261,7 +261,7 @@ export default {
       <section v-else-if="activeView === 'buscar'" class="content-section">
         <div class="section-heading">
           <div>
-            <p class="eyebrow"><i class="fa-solid fa-magnifying-glass"></i> Búsqueda global</p>
+            <p class="eyebrow"><span class="eyebrow-mark"></span> Búsqueda global</p>
             <h2>Resultados para “{{ searchTerm }}”</h2>
           </div>
         </div>
@@ -310,7 +310,7 @@ export default {
 }
 
 .main-content {
-  margin-top: 192px;
+  margin-top: 114px;
 }
 
 .hero-section {
@@ -322,8 +322,8 @@ export default {
   display: grid;
   gap: 2rem;
   grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.8fr);
-  min-height: calc(100vh - 192px);
-  padding: 4rem clamp(1rem, 6vw, 6rem);
+  min-height: calc(100vh - 114px);
+  padding: clamp(3rem, 6vw, 5.5rem) clamp(1rem, 6vw, 6rem);
   position: relative;
   overflow: hidden;
 }
@@ -446,6 +446,31 @@ export default {
   text-transform: uppercase;
 }
 
+.eyebrow-mark {
+  background: linear-gradient(180deg, #f5d740, #0a6d32);
+  border-radius: 999px;
+  display: inline-block;
+  height: 1.05em;
+  transform: rotate(18deg);
+  width: 0.28em;
+}
+
+.button-mark {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  display: inline-flex;
+  font-weight: 900;
+  height: 1.35rem;
+  justify-content: center;
+  line-height: 1;
+  width: 1.35rem;
+}
+
+button.secondary .button-mark {
+  background: rgba(16, 24, 18, 0.08);
+}
+
 .hero-section .eyebrow {
   color: #f3d23f;
   font-size: 0.9rem;
@@ -466,7 +491,7 @@ button {
   align-items: center;
   background: #101812;
   border: 1px solid #101812;
-  border-radius: 8px;
+  border-radius: 999px;
   color: #fff;
   cursor: pointer;
   display: inline-flex;
@@ -474,12 +499,18 @@ button {
   font-weight: 800;
   gap: 0.45rem;
   min-height: 42px;
-  padding: 0.65rem 1rem;
+  padding: 0.62rem 1.05rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 button.secondary {
   background: #fff;
   color: #101812;
+}
+
+button:hover:not(:disabled) {
+  box-shadow: 0 14px 28px rgba(16, 24, 18, 0.16);
+  transform: translateY(-1px);
 }
 
 button:disabled {
@@ -648,7 +679,7 @@ button:disabled {
   background: #fff;
   border: 1px solid rgba(16, 24, 18, 0.1);
   border-radius: 8px;
-  box-shadow: 0 18px 50px rgba(24, 31, 27, 0.08);
+  box-shadow: 0 18px 50px rgba(24, 31, 27, 0.07);
   display: grid;
   overflow: hidden;
 }
@@ -661,13 +692,16 @@ button:disabled {
 .image-fallback {
   aspect-ratio: 16 / 10;
   background:
-    linear-gradient(135deg, #112419, #163d27),
-    radial-gradient(circle at 70% 20%, rgba(243, 210, 63, 0.32), transparent 14rem);
+    radial-gradient(circle at 70% 20%, rgba(243, 210, 63, 0.3), transparent 13rem),
+    linear-gradient(135deg, #0f2f1f, #123c25);
   color: #fff;
   display: grid;
-  font-size: 2rem;
+  font-size: 1.2rem;
+  font-weight: 950;
+  letter-spacing: 0.08em;
   object-fit: cover;
   place-items: center;
+  text-transform: uppercase;
   width: 100%;
 }
 
@@ -756,7 +790,7 @@ button:disabled {
   background: #fff;
   border: 1px solid rgba(16, 24, 18, 0.1);
   border-radius: 8px;
-  box-shadow: 0 18px 50px rgba(24, 31, 27, 0.08);
+  box-shadow: 0 18px 50px rgba(24, 31, 27, 0.06);
   padding: 1rem;
 }
 
@@ -770,6 +804,8 @@ button:disabled {
   border-radius: 999px;
   color: #fff;
   display: inline-flex;
+  font-size: 0.78rem;
+  font-weight: 950;
   height: 46px;
   justify-content: center;
   margin-bottom: 1rem;
@@ -1043,12 +1079,12 @@ td small {
 
 @media (max-width: 980px) {
   .main-content {
-    margin-top: 294px;
+    margin-top: 240px;
   }
 
   .hero-section {
     grid-template-columns: 1fr;
-    min-height: calc(100vh - 294px);
+    min-height: calc(100vh - 240px);
   }
 
   .hero-brand-panel {
@@ -1088,7 +1124,7 @@ td small {
 
 @media (max-width: 560px) {
   .main-content {
-    margin-top: 330px;
+    margin-top: 296px;
   }
 
   .stats-band {

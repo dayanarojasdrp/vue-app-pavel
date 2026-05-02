@@ -41,7 +41,7 @@ export default {
   <section class="content-section">
     <div class="section-heading">
       <div>
-        <p class="eyebrow"><i :class="['fa-solid', config.icon]"></i> {{ config.title }}</p>
+        <p class="eyebrow"><span class="eyebrow-mark"></span> {{ config.title }}</p>
         <h2>{{ config.description }}</h2>
       </div>
       <button class="secondary" @click="$emit('refresh')">Actualizar</button>
@@ -51,7 +51,7 @@ export default {
     <div class="content-grid">
       <article v-for="item in items" :key="item.id || item.slug" class="content-card">
         <img v-if="imageUrl(item)" :src="imageUrl(item)" :alt="title(item)" />
-        <div v-else class="image-fallback small"><i :class="['fa-solid', config.icon]"></i></div>
+        <div v-else class="image-fallback small"><span>CME</span></div>
         <span v-if="meta(item)" class="tag">{{ meta(item) }}</span>
         <h3>{{ title(item) }}</h3>
         <p>{{ body(item) }}</p>

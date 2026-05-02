@@ -3,7 +3,9 @@
     <div class="social-icons">
       <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
       <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a>
       <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="#" aria-label="Correo"><i class="fa-solid fa-envelope"></i></a>
     </div>
 
     <div class="search-box">
@@ -58,7 +60,7 @@ export default {
   gap: 0.8rem;
   justify-content: space-between;
   left: 0;
-  height: 76px;
+  height: 46px;
   padding: 0 clamp(1.25rem, 3vw, 4rem);
   position: fixed;
   text-transform: none;
@@ -68,10 +70,17 @@ export default {
 }
 
 .social-icons a {
-  margin-right: 1.45rem;
   color: #ffffff;
   text-decoration: none;
-  font-size: 1.42rem;
+  font-size: 0.9rem;
+}
+
+.social-icons {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: clamp(1rem, 1.6vw, 1.55rem);
+  white-space: nowrap;
 }
 
 .search-box {
@@ -80,8 +89,9 @@ export default {
   gap: 0.55rem;
   margin-left: auto;
   margin-right: auto;
-  max-width: 390px;
-  width: 26vw;
+  max-width: 280px;
+  min-width: 190px;
+  width: 22vw;
 }
 
 .search-box input {
@@ -89,8 +99,8 @@ export default {
   color: #fff;
   border: none;
   border-bottom: 1px solid #fff;
-  padding: 0.32rem 0.6rem;
-  font-size: 1.25rem;
+  padding: 0.16rem 0.35rem;
+  font-size: 0.82rem;
   outline: none;
   border-radius: 0;
   width: 100%;
@@ -110,19 +120,19 @@ export default {
   border: 2px solid #fff;
   border-radius: 999px;
   display: inline-block;
-  height: 22px;
+  height: 14px;
   position: relative;
-  width: 22px;
+  width: 14px;
 }
 
 .search-icon::after {
   background: #fff;
   border-radius: 999px;
-  bottom: -7px;
+  bottom: -4px;
   content: "";
-  height: 10px;
+  height: 7px;
   position: absolute;
-  right: -6px;
+  right: -4px;
   transform: rotate(-45deg);
   width: 2px;
 }
@@ -131,9 +141,16 @@ export default {
   margin-left: clamp(1.25rem, 2.4vw, 2.7rem);
   color: #ffffff;
   text-decoration: none;
-  font-size: clamp(0.9rem, 1.3vw, 1.25rem);
+  font-size: clamp(0.72rem, 0.9vw, 0.88rem);
   font-weight: 800;
   letter-spacing: 0.02em;
+}
+
+.extra-links {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 .search-button {
   background: none;
@@ -148,10 +165,15 @@ export default {
   .top-bar {
     align-items: stretch;
     flex-direction: column;
-    height: 128px;
+    height: 118px;
     justify-content: center;
     padding-bottom: 0.65rem;
     padding-top: 0.65rem;
+  }
+
+  .social-icons,
+  .extra-links {
+    flex-wrap: wrap;
   }
 
   .extra-links {

@@ -45,7 +45,7 @@ export default {
 <template>
   <section :class="compact ? 'contact-footer-section' : 'form-section'">
     <div>
-      <p class="eyebrow"><i class="fa-solid fa-envelope"></i> Contacto</p>
+      <p class="eyebrow"><span class="eyebrow-mark"></span> Contacto</p>
       <h2>{{ compact ? 'Conversemos' : 'Envía un mensaje al equipo pastoral' }}</h2>
       <p v-if="compact">Escribe al equipo pastoral y recibe acompañamiento, información o ayuda para integrarte.</p>
     </div>
@@ -56,7 +56,7 @@ export default {
       <input :value="form.asunto" required placeholder="Asunto" @input="updateField('asunto', $event.target.value)" />
       <textarea :value="form.mensaje" required placeholder="Mensaje" @input="updateField('mensaje', $event.target.value)"></textarea>
       <button :disabled="loading">
-        <i class="fa-solid fa-paper-plane"></i>
+        <span class="button-mark">→</span>
         {{ loading ? 'Enviando...' : compact ? 'Enviar' : 'Enviar mensaje' }}
       </button>
       <p v-if="message" class="success">{{ message }}</p>

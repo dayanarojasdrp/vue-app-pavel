@@ -99,11 +99,11 @@ export default {
       <p>Desde el Escambray anunciamos esperanza, formamos discípulos y servimos a nuestra comunidad con una fe viva.</p>
       <div class="hero-actions">
         <button @click="$emit('navigate', 'paginas')">
-          <i class="fa-solid fa-circle-info"></i>
+          <span class="button-mark">i</span>
           Más información
         </button>
         <button class="secondary" @click="$emit('navigate', 'eventos')">
-          <i class="fa-solid fa-calendar-days"></i>
+          <span class="button-mark">+</span>
           Próximos eventos
         </button>
       </div>
@@ -127,7 +127,7 @@ export default {
     <form class="home-search" @submit.prevent="submitHomeSearch">
       <input v-model="homeSearch" placeholder="Buscar en Pavel Web" />
       <button>
-        <i class="fa-solid fa-magnifying-glass"></i>
+        <span class="button-mark">⌕</span>
         Buscar
       </button>
     </form>
@@ -145,7 +145,7 @@ export default {
       <img src="@/assets/logo-cme.jpg" alt="Centro Misionero Escambray" />
     </div>
     <div class="section-copy">
-      <p class="eyebrow"><i class="fa-solid fa-church"></i> Quiénes somos</p>
+      <p class="eyebrow"><span class="eyebrow-mark"></span> Quiénes somos</p>
       <h2>{{ itemTitle(aboutPage, PUBLIC_ENDPOINTS.paginas.fields) }}</h2>
       <p>{{ itemBody(aboutPage, PUBLIC_ENDPOINTS.paginas.fields) }}</p>
       <button class="secondary" @click="$emit('navigate', 'paginas')">Más información</button>
@@ -155,7 +155,7 @@ export default {
   <section class="news-feature-section">
     <div class="section-heading">
       <div>
-        <p class="eyebrow"><i class="fa-solid fa-newspaper"></i> Noticias destacadas</p>
+        <p class="eyebrow"><span class="eyebrow-mark"></span> Noticias destacadas</p>
         <h2>Historias y actualizaciones de la iglesia</h2>
       </div>
       <button class="secondary" @click="$emit('navigate', 'noticias')">Ver todas</button>
@@ -165,7 +165,7 @@ export default {
 
   <section class="split-section">
     <div class="section-copy dark-copy">
-      <p class="eyebrow"><i class="fa-solid fa-calendar-days"></i> Eventos próximos</p>
+      <p class="eyebrow"><span class="eyebrow-mark"></span> Eventos próximos</p>
       <h2>Reúnete, sirve y crece con la comunidad.</h2>
       <p>Los eventos publicados por el pastor aparecerán aquí automáticamente cuando estén activos y próximos.</p>
       <button class="secondary" @click="$emit('navigate', 'eventos')">Todos los eventos</button>
@@ -176,13 +176,13 @@ export default {
   <section class="ministry-section">
     <div class="section-heading centered">
       <div>
-        <p class="eyebrow"><i class="fa-solid fa-people-group"></i> Descubre los ministerios</p>
+        <p class="eyebrow"><span class="eyebrow-mark"></span> Descubre los ministerios</p>
         <h2>Equipando familias, jóvenes, niños y líderes</h2>
       </div>
     </div>
     <div class="tile-grid">
       <article v-for="item in ministries" :key="item.id || item.slug" class="tile-card">
-        <div class="tile-icon"><i class="fa-solid fa-hands-praying"></i></div>
+        <div class="tile-icon">CME</div>
         <span v-if="item.categoria" class="tag">{{ item.categoria }}</span>
         <h3>{{ titleFor(item, 'ministerios') }}</h3>
         <p>{{ bodyFor(item, 'ministerios') }}</p>
@@ -192,7 +192,7 @@ export default {
 
   <section class="mission-resource-section">
     <div class="section-copy">
-      <p class="eyebrow"><i class="fa-solid fa-earth-americas"></i> Misiones</p>
+      <p class="eyebrow"><span class="eyebrow-mark"></span> Misiones</p>
       <h2>Una iglesia enviada</h2>
       <div class="mini-list">
         <article v-for="item in missions" :key="item.id || item.slug">
@@ -202,7 +202,7 @@ export default {
       </div>
     </div>
     <div class="section-copy resource-panel">
-      <p class="eyebrow"><i class="fa-solid fa-folder-open"></i> Recursos</p>
+      <p class="eyebrow"><span class="eyebrow-mark"></span> Recursos</p>
       <h2>Crecimiento espiritual y apoyo ministerial</h2>
       <div class="mini-list">
         <article v-for="item in resources" :key="item.id || item.slug">

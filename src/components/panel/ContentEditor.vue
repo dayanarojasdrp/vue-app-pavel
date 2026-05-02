@@ -135,7 +135,7 @@ export default {
 
       try {
         if (this.isEditing) {
-          await api.put(`${this.config.endpoint}/${this.editingId}`, this.payload())
+          await api.patch(`${this.config.endpoint}/${this.editingId}`, this.payload())
           this.message = 'Contenido actualizado.'
         } else {
           await api.post(this.config.endpoint, this.payload())
@@ -181,7 +181,7 @@ export default {
   <div class="content-editor">
     <div class="editor-header">
       <div>
-        <p class="eyebrow"><i :class="['fa-solid', config.icon]"></i> {{ config.title }}</p>
+        <p class="eyebrow"><span class="eyebrow-mark"></span> {{ config.title }}</p>
         <h3>{{ isEditing ? `Editar ${config.singular}` : `Crear ${config.singular}` }}</h3>
       </div>
       <button class="secondary" @click="fetchItems">Actualizar listado</button>
@@ -241,7 +241,7 @@ export default {
 
       <div class="editor-actions">
         <button :disabled="readonly || saving">
-          <i class="fa-solid fa-floppy-disk"></i>
+          <span class="button-mark">✓</span>
           {{ saving ? 'Guardando...' : isEditing ? 'Guardar cambios' : 'Publicar' }}
         </button>
         <button type="button" class="secondary" @click="resetForm">Limpiar</button>

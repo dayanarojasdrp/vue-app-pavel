@@ -168,15 +168,15 @@ export default {
   background-color: #fff;
   border-bottom: 1px solid rgba(16, 24, 20, 0.1);
   box-shadow: none;
-  min-height: 116px;
-  padding: 1.05rem clamp(1.25rem, 3vw, 4rem);
+  min-height: 68px;
+  padding: 0.42rem clamp(1.25rem, 3vw, 4rem);
 }
 
 .nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: clamp(2rem, 5vw, 7rem);
+  gap: clamp(1.5rem, 3vw, 4.5rem);
   margin: 0 auto;
   max-width: 1440px;
 }
@@ -197,7 +197,7 @@ export default {
 
 .nav-links li a {
   font-family: sans-serif;
-  font-size: clamp(0.86rem, 1.2vw, 1.18rem);
+  font-size: clamp(0.72rem, 0.86vw, 0.88rem);
   font-weight: 800;
   color: #162119;
   text-decoration: none;
@@ -211,7 +211,7 @@ export default {
 
 .dropdown > a {
   font-family: sans-serif;
-  font-size: clamp(0.86rem, 1.2vw, 1.18rem);
+  font-size: clamp(0.72rem, 0.86vw, 0.88rem);
   font-weight: 800;
   color: #162119;
   text-decoration: none;
@@ -258,7 +258,7 @@ export default {
   background-color: transparent;
   color: #162119;
   text-decoration: none;
-  padding: 0.7rem clamp(0.8rem, 1.25vw, 1.35rem);
+  padding: 0.34rem clamp(0.62rem, 0.9vw, 0.88rem);
   display: block;
   border-radius: 999px; /* ← esto hace que el fondo sea ovalado */
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -275,9 +275,9 @@ export default {
 }
 
 .oval-group {
-  border: 2px solid rgba(16, 24, 20, 0.82);
+  border: 1.5px solid rgba(16, 24, 20, 0.82);
   border-radius: 999px;
-  padding: 0.35rem clamp(0.4rem, 1vw, 1rem);
+  padding: 0.22rem clamp(0.34rem, 0.68vw, 0.68rem);
   display: flex;
   gap: clamp(0.05rem, 0.4vw, 0.35rem);
   background-color: #fff;
@@ -297,7 +297,7 @@ export default {
 .brand-monogram {
   color: #050505;
   display: inline-block;
-  font-size: clamp(3rem, 5.4vw, 5.7rem);
+  font-size: clamp(1.65rem, 2.65vw, 2.85rem);
   font-weight: 950;
   letter-spacing: -0.15em;
   line-height: 0.82;
@@ -326,7 +326,7 @@ export default {
 }
 .navbar {
   position: fixed;
-  top: 76px;
+  top: 46px;
   left: 0;
   width: 100%;
   z-index: 999;
@@ -347,7 +347,7 @@ export default {
 
 @media (max-width: 980px) {
   .navbar {
-    top: 76px;
+    top: 46px;
     padding: 0.8rem 1rem;
   }
 
