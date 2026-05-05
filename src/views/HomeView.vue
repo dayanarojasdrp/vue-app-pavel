@@ -32,10 +32,6 @@ export default {
       type: Array,
       required: true
     },
-    resources: {
-      type: Array,
-      required: true
-    },
     publicErrors: {
       type: Object,
       default: () => ({})
@@ -190,7 +186,7 @@ export default {
     </div>
   </section>
 
-  <section class="mission-resource-section">
+  <section class="mission-resource-section single-column">
     <div class="section-copy">
       <p class="eyebrow"><span class="eyebrow-mark"></span> Misiones</p>
       <h2>Una iglesia enviada</h2>
@@ -198,16 +194,6 @@ export default {
         <article v-for="item in missions" :key="item.id || item.slug">
           <h3>{{ titleFor(item, 'misiones') }}</h3>
           <p>{{ bodyFor(item, 'misiones') }}</p>
-        </article>
-      </div>
-    </div>
-    <div class="section-copy resource-panel">
-      <p class="eyebrow"><span class="eyebrow-mark"></span> Recursos</p>
-      <h2>Crecimiento espiritual y apoyo ministerial</h2>
-      <div class="mini-list">
-        <article v-for="item in resources" :key="item.id || item.slug">
-          <h3>{{ titleFor(item, 'recursos') }}</h3>
-          <p>{{ bodyFor(item, 'recursos') }}</p>
         </article>
       </div>
     </div>

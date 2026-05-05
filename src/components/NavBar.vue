@@ -30,7 +30,7 @@
     :class="{ active: activeItem === 'creencias' }"
     @click.prevent="toggleDropdown('creencias'); setActiveItem('creencias')"
   >
-    CREENCIAS<span class="arrow">▼</span>
+    CREENCIAS<span class="arrow" aria-hidden="true"></span>
   </a>
  <ul v-if="activeDropdown === 'creencias'" class="submenu">
   <li><a href="#" @click.prevent="go('paginas', 'creencias')">Nuestras cuatro verdades cardinales</a></li>
@@ -45,7 +45,7 @@
    :class="{ active: activeItem === 'ministerios' }"
     @click.prevent="toggleDropdown('ministerios'); setActiveItem('ministerios')"
   >
-    MINISTERIOS<span class="arrow">▼</span>
+    MINISTERIOS<span class="arrow" aria-hidden="true"></span>
   </a>
 <ul v-if="activeDropdown === 'ministerios'" class="submenu">
   <li><a href="#" @click.prevent="go('ministerios', 'ministerios')">Todos los ministerios</a></li>
@@ -66,23 +66,6 @@
   >
     MISIONES
   </a>
-</li>
-   <li class="dropdown">
-  <a
-    href="#"
-    :class="{ active: activeItem === 'recursos' }"
-    @click.prevent="toggleDropdown('recursos'); setActiveItem('recursos')"
-  >
-    RECURSOS<span class="arrow">▼</span>
-  </a>
- <ul v-if="activeDropdown === 'recursos' " class="submenu">
-  <li><a href="#" @click.prevent="go('recursos', 'recursos')">Para Ministerios</a></li>
-  <li><a href="#" @click.prevent="go('recursos', 'recursos')">Para Iglesias</a></li>
-  <li><a href="#" @click.prevent="go('recursos', 'recursos')">Para distritos</a></li>
-    <li><a href="#" @click.prevent="go('recursos', 'recursos')">Descargas</a></li>
-      <li><a href="#" @click.prevent="go('recursos', 'recursos')">Más recursos</a></li>
-</ul>
-
 </li>
         <li>
   <a
@@ -126,7 +109,7 @@ export default {
   // Si la opción tiene un padre (viene de un submenú), marcamos el padre como activo
   this.activeItem = parent || name;
 
-  const desplegables = ['ministerios', 'creencias', 'recursos'];
+  const desplegables = ['ministerios', 'creencias'];
 
   // Si la opción seleccionada NO es un desplegable principal, cerramos el submenú
   if (!desplegables.includes(this.activeItem)) {
@@ -168,15 +151,15 @@ export default {
   background-color: #fff;
   border-bottom: 1px solid rgba(16, 24, 20, 0.1);
   box-shadow: none;
-  min-height: 68px;
-  padding: 0.42rem clamp(1.25rem, 3vw, 4rem);
+  min-height: 74px;
+  padding: 0.55rem clamp(1.25rem, 3vw, 4rem);
 }
 
 .nav-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  gap: clamp(1.5rem, 3vw, 4.5rem);
+  gap: clamp(3rem, 6vw, 8rem);
   margin: 0 auto;
   max-width: 1440px;
 }
@@ -197,7 +180,7 @@ export default {
 
 .nav-links li a {
   font-family: sans-serif;
-  font-size: clamp(0.72rem, 0.86vw, 0.88rem);
+  font-size: clamp(0.9rem, 1.1vw, 1.15rem);
   font-weight: 800;
   color: #162119;
   text-decoration: none;
@@ -211,7 +194,7 @@ export default {
 
 .dropdown > a {
   font-family: sans-serif;
-  font-size: clamp(0.72rem, 0.86vw, 0.88rem);
+  font-size: clamp(0.9rem, 1.1vw, 1.15rem);
   font-weight: 800;
   color: #162119;
   text-decoration: none;
@@ -258,8 +241,9 @@ export default {
   background-color: transparent;
   color: #162119;
   text-decoration: none;
-  padding: 0.34rem clamp(0.62rem, 0.9vw, 0.88rem);
-  display: block;
+  padding: 0.52rem clamp(0.85rem, 1.35vw, 1.35rem);
+  display: flex;
+  align-items: center;
   border-radius: 999px; /* ← esto hace que el fondo sea ovalado */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -275,11 +259,11 @@ export default {
 }
 
 .oval-group {
-  border: 1.5px solid rgba(16, 24, 20, 0.82);
+  border: 1.5px solid #222622;
   border-radius: 999px;
-  padding: 0.22rem clamp(0.34rem, 0.68vw, 0.68rem);
+  padding: 0.22rem clamp(0.6rem, 1vw, 1.1rem);
   display: flex;
-  gap: clamp(0.05rem, 0.4vw, 0.35rem);
+  gap: clamp(0.2rem, 0.8vw, 1rem);
   background-color: #fff;
   flex: 1;
   justify-content: space-between;
@@ -289,7 +273,7 @@ export default {
 .logo-button {
   align-items: center;
   display: flex;
-  flex: 0 0 auto;
+  flex: 0 0 clamp(95px, 10vw, 130px);
   gap: 0;
   text-decoration: none;
 }
@@ -297,7 +281,7 @@ export default {
 .brand-monogram {
   color: #050505;
   display: inline-block;
-  font-size: clamp(1.65rem, 2.65vw, 2.85rem);
+  font-size: clamp(2.3rem, 4.2vw, 4.8rem);
   font-weight: 950;
   letter-spacing: -0.15em;
   line-height: 0.82;
@@ -324,6 +308,17 @@ export default {
   position: absolute;
   width: 1px;
 }
+
+.arrow {
+  border-bottom: 0.2em solid transparent;
+  border-left: 0.3em solid currentColor;
+  border-top: 0.2em solid transparent;
+  display: inline-block;
+  height: 0;
+  margin-left: 0.42rem;
+  transform: rotate(90deg) translateX(1px);
+  width: 0;
+}
 .navbar {
   position: fixed;
   top: 46px;
@@ -334,7 +329,7 @@ export default {
 
 @media (max-width: 1220px) {
   .nav-container {
-    gap: 1.25rem;
+    gap: 1.4rem;
   }
 
   .nav-links li a,

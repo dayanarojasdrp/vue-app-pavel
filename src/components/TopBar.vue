@@ -18,7 +18,6 @@
     <div class="extra-links">
       <a href="#" @click.prevent="$emit('navigate', 'noticias')">NOTICIAS</a>
       <a href="#" @click.prevent="$emit('navigate', 'eventos')">EVENTOS</a>
-      <a href="#" @click.prevent="$emit('navigate', 'recursos')">RECURSOS</a>
       <a href="#" @click.prevent="$emit('navigate', 'ministerios')">MINISTERIOS</a>
       <a href="#" @click.prevent="$emit('navigate', 'panel')">PANEL</a>
     </div>

@@ -238,7 +238,6 @@ export default {
         :upcoming-events="upcomingEvents"
         :ministries="ministries"
         :missions="missions"
-        :resources="resources"
         :public-errors="publicErrors"
         :contact-form="contactForm"
         :contact-loading="contactLoading"
@@ -310,7 +309,7 @@ export default {
 }
 
 .main-content {
-  margin-top: 114px;
+  margin-top: 120px;
 }
 
 .hero-section {
@@ -322,7 +321,7 @@ export default {
   display: grid;
   gap: 2rem;
   grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.8fr);
-  min-height: calc(100vh - 114px);
+  min-height: calc(100vh - 120px);
   padding: clamp(3rem, 6vw, 5.5rem) clamp(1rem, 6vw, 6rem);
   position: relative;
   overflow: hidden;
@@ -814,6 +813,14 @@ button:disabled {
 
 .mission-resource-section {
   align-items: stretch;
+}
+
+.mission-resource-section.single-column {
+  grid-template-columns: 1fr;
+}
+
+.mission-resource-section.single-column .section-copy {
+  max-width: 920px;
 }
 
 .resource-panel {

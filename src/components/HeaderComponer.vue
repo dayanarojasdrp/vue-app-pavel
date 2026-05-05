@@ -10,7 +10,6 @@
         <li><a href="#">SOBRE</a></li>
         <li><a href="#">CREENCIAS</a></li>
         <li><a href="#">MINISTERIOS</a></li>
-        <li><a href="#">RECURSOS</a></li>
         <li><a href="#">DONAR</a></li>
         <li><a href="#">CONÉCTATE</a></li>
       </ul>
