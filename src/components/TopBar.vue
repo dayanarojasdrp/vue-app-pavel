@@ -1,25 +1,28 @@
 <template>
   <div class="top-bar">
     <div class="social-icons">
-      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a>
-      <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-      <a href="#" aria-label="Correo"><i class="fa-solid fa-envelope"></i></a>
+      <a
+        v-for="link in socialLinks"
+        :key="link.key"
+        :href="link.href"
+        :aria-label="link.label"
+      >
+        <i :class="link.icon"></i>
+      </a>
     </div>
 
     <div class="search-box">
-      <input v-model="search" type="text" placeholder="BUSCAR" @keyup.enter="submitSearch" />
-      <button class="search-button" @click="submitSearch" aria-label="Buscar">
+      <input v-model="search" type="text" :placeholder="pageTitle('search', 'BUSCAR')" @keyup.enter="submitSearch" />
+      <button class="search-button" @click="submitSearch" :aria-label="pageTitle('search', 'Buscar')">
         <span class="search-icon"></span>
       </button>
     </div>
 
     <div class="extra-links">
-      <a href="#" @click.prevent="$emit('navigate', 'noticias')">NOTICIAS</a>
-      <a href="#" @click.prevent="$emit('navigate', 'eventos')">EVENTOS</a>
-      <a href="#" @click.prevent="$emit('navigate', 'ministerios')">MINISTERIOS</a>
-      <a href="#" @click.prevent="$emit('navigate', 'panel')">PANEL</a>
+      <a href="#" @click.prevent="$emit('navigate', 'noticias')">{{ pageTitle('noticias', 'NOTICIAS') }}</a>
+      <a href="#" @click.prevent="$emit('navigate', 'eventos')">{{ pageTitle('eventos', 'EVENTOS') }}</a>
+      <a href="#" @click.prevent="$emit('navigate', 'ministerios')">{{ pageTitle('ministerios', 'MINISTERIOS') }}</a>
+      <a href="#" @click.prevent="$emit('navigate', 'panel')">{{ pageTitle('panel', 'PANEL') }}</a>
     </div>
   </div>
 </template>
@@ -27,13 +30,48 @@
 <script>
 export default {
   name: 'TopBar',
+  props: {
+    pages: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   emits: ['navigate', 'search'],
   data() {
     return {
       search: ''
     }
   },
+  computed: {
+    socialLinks() {
+      return [
+        { key: 'facebook', icon: 'fab fa-facebook-f' },
+        { key: 'instagram', icon: 'fab fa-instagram' },
+        { key: 'x', icon: 'fab fa-x-twitter' },
+        { key: 'youtube', icon: 'fab fa-youtube' },
+        { key: 'correo', icon: 'fa-solid fa-envelope', prefix: 'mailto:' }
+      ]
+        .filter((link) => this.pages[link.key])
+        .map((link) => ({
+          ...link,
+          href: this.linkHref(link.key, link.prefix || ''),
+          label: this.pageTitle(link.key, link.key)
+        }))
+        .filter((link) => link.href !== '#')
+    }
+  },
   methods: {
+    pageTitle(key, fallback) {
+      return this.pages[key]?.titulo || fallback;
+    },
+    linkHref(key, prefix = '') {
+      const raw = this.pages[key]?.meta_title || this.pages[key]?.contenido || '#';
+
+      if (!raw || raw === '#') return '#';
+      if (prefix && !String(raw).startsWith(prefix)) return `${prefix}${raw}`;
+
+      return raw;
+    },
     submitSearch() {
       const term = this.search.trim();
 
