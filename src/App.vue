@@ -4,10 +4,10 @@ import NavBar from './components/NavBar.vue'
 import PastorPanel from './components/panel/PastorPanel.vue'
 import PublicSection from './components/PublicSection.vue'
 import TopBar from './components/TopBar.vue'
+import CoreDoctrinesView from './views/CoreDoctrinesView.vue'
 import HomeView from './views/HomeView.vue'
 import {
   errorMessage,
-  FALLBACK_CONTENT,
   imageUrl,
   itemBody,
   itemDate,
@@ -21,6 +21,7 @@ import api, { getAuthToken, setAuthToken } from './services/api'
 export default {
   components: {
     ContactSection,
+    CoreDoctrinesView,
     HomeView,
     NavBar,
     PastorPanel,
@@ -32,6 +33,8 @@ export default {
       PUBLIC_ENDPOINTS,
       activeView: 'inicio',
       activePublicKey: 'noticias',
+      activePublicFilters: {},
+      activePublicFilterLabel: '',
       publicContent: {},
       publicErrors: {},
       loadingPublic: false,
@@ -65,8 +68,118 @@ export default {
     publicItems() {
       return this.itemsFor(this.activePublicKey)
     },
+    pages() {
+      return this.itemsFor('paginas')
+    },
     aboutPage() {
-      return this.itemsFor('paginas')[0] || FALLBACK_CONTENT.paginas[0]
+      return this.pageFor('sobre') || this.pages.find((page) => page.slug === 'sobre-nosotros' || page.slug === 'sobre') || null
+    },
+    homePages() {
+      return {
+        hero: this.pageFor('inicio-hero'),
+        heroEyebrow: this.pageFor('inicio-hero-etiqueta'),
+        heroPrimaryButton: this.pageFor('inicio-hero-boton-principal'),
+        heroSecondaryButton: this.pageFor('inicio-hero-boton-secundario'),
+        search: this.pageFor('inicio-busqueda'),
+        searchPlaceholder: this.pageFor('inicio-busqueda-placeholder'),
+        searchButton: this.pageFor('inicio-busqueda-boton'),
+        links: this.pageFor('inicio-enlaces'),
+        quickAbout: this.pageFor('inicio-enlace-sobre'),
+        quickBeliefs: this.pageFor('inicio-enlace-creencias'),
+        quickNews: this.pageFor('inicio-enlace-noticias'),
+        quickEvents: this.pageFor('inicio-enlace-eventos'),
+        quickMinistries: this.pageFor('inicio-enlace-ministerios'),
+        quickMissions: this.pageFor('inicio-enlace-misiones'),
+        quickDonate: this.pageFor('inicio-enlace-donar'),
+        quickContact: this.pageFor('inicio-enlace-contacto'),
+        quickPanel: this.pageFor('inicio-enlace-panel'),
+        aboutEyebrow: this.pageFor('inicio-sobre-etiqueta'),
+        aboutButton: this.pageFor('inicio-sobre-boton'),
+        news: this.pageFor('inicio-noticias'),
+        newsEyebrow: this.pageFor('inicio-noticias-etiqueta'),
+        newsButton: this.pageFor('inicio-noticias-boton'),
+        events: this.pageFor('inicio-eventos'),
+        eventsEyebrow: this.pageFor('inicio-eventos-etiqueta'),
+        eventsButton: this.pageFor('inicio-eventos-boton'),
+        eventDateFallback: this.pageFor('evento-fecha-proximo'),
+        ministries: this.pageFor('inicio-ministerios'),
+        ministriesEyebrow: this.pageFor('inicio-ministerios-etiqueta'),
+        missions: this.pageFor('inicio-misiones'),
+        missionsEyebrow: this.pageFor('inicio-misiones-etiqueta'),
+        contact: this.pageFor('contacto'),
+        contactEyebrow: this.pageFor('contacto-etiqueta'),
+        contactName: this.pageFor('contacto-nombre'),
+        contactEmail: this.pageFor('contacto-email'),
+        contactPhone: this.pageFor('contacto-telefono'),
+        contactSubject: this.pageFor('contacto-asunto'),
+        contactMessage: this.pageFor('contacto-mensaje'),
+        contactButton: this.pageFor('contacto-boton'),
+        contactLoadingButton: this.pageFor('contacto-boton-cargando'),
+        footer: this.pageFor('footer'),
+        footerButton: this.pageFor('footer-boton-panel')
+      }
+    },
+    contactPages() {
+      return {
+        eyebrow: this.pageFor('contacto-etiqueta'),
+        name: this.pageFor('contacto-nombre'),
+        email: this.pageFor('contacto-email'),
+        phone: this.pageFor('contacto-telefono'),
+        subject: this.pageFor('contacto-asunto'),
+        message: this.pageFor('contacto-mensaje'),
+        button: this.pageFor('contacto-boton'),
+        loadingButton: this.pageFor('contacto-boton-cargando')
+      }
+    },
+    publicListUiPages() {
+      return {
+        refresh: this.pageFor('listado-boton-actualizar'),
+        empty: this.pageFor('listado-vacio')
+      }
+    },
+    searchPages() {
+      return {
+        eyebrow: this.pageFor('buscar-etiqueta'),
+        loading: this.pageFor('buscar-cargando'),
+        empty: this.pageFor('buscar-vacio')
+      }
+    },
+    publicHeaderPage() {
+      return this.pageFor(this.activePublicFilters?.seccion) || this.pageFor(this.activePublicKey)
+    },
+    topBarPages() {
+      return {
+        search: this.pageFor('buscar'),
+        noticias: this.pageFor('top-noticias'),
+        eventos: this.pageFor('top-eventos'),
+        ministerios: this.pageFor('top-ministerios'),
+        panel: this.pageFor('top-panel'),
+        facebook: this.pageFor('social-facebook'),
+        instagram: this.pageFor('social-instagram'),
+        x: this.pageFor('social-x'),
+        youtube: this.pageFor('social-youtube'),
+        correo: this.pageFor('social-correo')
+      }
+    },
+    navPages() {
+      return {
+        inicio: this.pageFor('nav-inicio'),
+        sobre: this.pageFor('nav-sobre'),
+        creencias: this.pageFor('nav-creencias'),
+        creenciasCardinales: this.pageFor('nav-creencias-cardinales'),
+        creenciasFundamentales: this.pageFor('nav-creencias-fundamentales'),
+        creenciasNormas: this.pageFor('nav-creencias-normas'),
+        ministerios: this.pageFor('nav-ministerios'),
+        ministeriosTodos: this.pageFor('nav-ministerios-todos'),
+        ministeriosAdultos: this.pageFor('nav-ministerios-adultos'),
+        ministeriosJovenes: this.pageFor('nav-ministerios-jovenes'),
+        ministeriosNinos: this.pageFor('nav-ministerios-ninos'),
+        ministeriosLideres: this.pageFor('nav-ministerios-lideres'),
+        ministeriosEducacion: this.pageFor('nav-ministerios-educacion'),
+        misiones: this.pageFor('nav-misiones'),
+        donar: this.pageFor('nav-donar'),
+        contacto: this.pageFor('nav-contacto')
+      }
     },
     featuredNews() {
       return this.itemsFor('noticias').slice(0, 6)
@@ -97,14 +210,30 @@ export default {
     itemBody,
     itemMeta,
     itemDate,
+    pageFor(section) {
+      if (!section) return null
+      return this.pages.find((page) => page.seccion === section || page.slug === section) || null
+    },
+    pageTitle(page, fallback) {
+      return page?.titulo || fallback
+    },
+    pageBody(page, fallback) {
+      return page?.resumen || page?.contenido || fallback
+    },
     async fetchHomeContent() {
       this.loadingPublic = true
       await Promise.all(Object.keys(PUBLIC_ENDPOINTS).map((key) => this.fetchPublic(key, true)))
       this.loadingPublic = false
     },
-    async navigate(view) {
+    async navigate(target) {
+      const view = typeof target === 'string' ? target : target.view
+      const filters = typeof target === 'string' ? {} : target.filters || {}
+      const filterLabel = typeof target === 'string' ? '' : target.filterLabel || ''
+
       if (view === 'inicio') {
         this.activeView = 'inicio'
+        this.activePublicFilters = {}
+        this.activePublicFilterLabel = ''
         window.scrollTo({ top: 0, behavior: 'smooth' })
         return
       }
@@ -112,25 +241,31 @@ export default {
       if (PUBLIC_ENDPOINTS[view]) {
         this.activeView = view
         this.activePublicKey = view
-        await this.fetchPublic(view)
+        this.activePublicFilters = filters
+        this.activePublicFilterLabel = filterLabel
+        await this.fetchPublic(view, true, filters)
         return
       }
 
       this.activeView = view
+      this.activePublicFilters = {}
+      this.activePublicFilterLabel = ''
     },
-    async fetchPublic(key, force = false) {
+    async fetchPublic(key, force = false, filters = {}) {
       const config = PUBLIC_ENDPOINTS[key]
+      const hasFilters = Object.keys(filters || {}).length > 0
 
       if (!config) return
-      if (!force && this.publicContent[key]?.length) return
+      if (!force && !hasFilters && this.publicContent[key]?.length) return
 
       this.publicErrors[key] = ''
 
       try {
         const response = await api.get(config.endpoint, {
           params: {
-            per_page: key === 'noticias' ? 9 : 6,
-            ...(config.params || {})
+            per_page: key === 'paginas' ? 100 : key === 'ministerios' ? 50 : key === 'noticias' ? 9 : 6,
+            ...(config.params || {}),
+            ...(filters || {})
           }
         })
         this.publicContent[key] = normalizeList(response.data)
@@ -143,7 +278,7 @@ export default {
       await this.fetchHomeContent()
 
       if (PUBLIC_ENDPOINTS[this.activeView]) {
-        await this.fetchPublic(this.activeView, true)
+        await this.fetchPublic(this.activeView, true, this.activePublicFilters)
       }
     },
     async runSearch(term) {
@@ -153,7 +288,7 @@ export default {
       this.searchError = ''
 
       try {
-        const response = await api.get('/buscar', { params: { q: term, per_page: 12 } })
+        const response = await api.get('/buscar', { params: { q: term, limit: 20 } })
         this.searchResults = this.normalizeSearch(response.data)
       } catch (error) {
         this.searchError = errorMessage(error)
@@ -165,9 +300,20 @@ export default {
       if (Array.isArray(payload)) return payload
       if (Array.isArray(payload?.data)) return payload.data
 
-      return Object.entries(payload || {}).flatMap(([type, value]) => {
+      const groups = payload?.results || payload || {}
+
+      return Object.entries(groups).flatMap(([type, value]) => {
         const items = Array.isArray(value?.data) ? value.data : value
-        return Array.isArray(items) ? items.map((item) => ({ ...item, tipo_resultado: type })) : []
+        return Array.isArray(items)
+          ? items.map((item) => ({
+              ...item,
+              titulo: item.titulo || item.nombre || item.title,
+              resumen: item.resumen || item.descripcion || item.informacion || item.summary,
+              categoria: item.categoria || item.category || item.section || item.type || type,
+              imagen: item.imagen || item.image,
+              tipo_resultado: item.tipo_resultado || item.type || type
+            }))
+          : []
       })
     },
     async loginUser() {
@@ -218,8 +364,7 @@ export default {
       }
     },
     itemsFor(key) {
-      const items = this.publicContent[key] || []
-      return items.length ? items : FALLBACK_CONTENT[key] || []
+      return this.publicContent[key] || []
     }
   }
 }
@@ -227,13 +372,14 @@ export default {
 
 <template>
   <div class="site-shell">
-    <TopBar @navigate="navigate" @search="runSearch" />
-    <NavBar @navigate="navigate" />
+    <TopBar :pages="topBarPages" @navigate="navigate" @search="runSearch" />
+    <NavBar :pages="navPages" @navigate="navigate" />
 
     <main class="main-content">
       <HomeView
         v-if="activeView === 'inicio'"
         :about-page="aboutPage"
+        :pages="homePages"
         :featured-news="featuredNews"
         :upcoming-events="upcomingEvents"
         :ministries="ministries"
@@ -254,18 +400,24 @@ export default {
         :config="publicConfig"
         :items="publicItems"
         :error="publicErrors[activePublicKey]"
-        @refresh="fetchPublic(activePublicKey, true)"
+        :filter-label="activePublicFilterLabel"
+        :header-page="publicHeaderPage"
+        :ui-pages="publicListUiPages"
+        @refresh="fetchPublic(activePublicKey, true, activePublicFilters)"
       />
+
+      <CoreDoctrinesView v-else-if="activeView === 'creencias'" :pages="pages" />
 
       <section v-else-if="activeView === 'buscar'" class="content-section">
         <div class="section-heading">
           <div>
-            <p class="eyebrow"><span class="eyebrow-mark"></span> Búsqueda global</p>
+            <p class="eyebrow"><span class="eyebrow-mark"></span> {{ pageTitle(searchPages.eyebrow, 'Búsqueda global') }}</p>
             <h2>Resultados para “{{ searchTerm }}”</h2>
           </div>
         </div>
-        <p v-if="searchLoading" class="status">Buscando...</p>
+        <p v-if="searchLoading" class="status">{{ pageTitle(searchPages.loading, 'Buscando...') }}</p>
         <p v-else-if="searchError" class="error">{{ searchError }}</p>
+        <p v-else-if="!searchResults.length" class="status">{{ pageBody(searchPages.empty, 'No hay resultados publicados para esa búsqueda.') }}</p>
         <div v-else class="content-grid">
           <article v-for="item in searchResults" :key="`${item.tipo_resultado || 'resultado'}-${item.id}`" class="content-card">
             <span class="tag">{{ item.tipo_resultado || item.categoria || 'resultado' }}</span>
@@ -278,6 +430,8 @@ export default {
       <ContactSection
         v-else-if="activeView === 'contacto'"
         v-model="contactForm"
+        :content-page="pageFor('contacto')"
+        :ui-pages="contactPages"
         :loading="contactLoading"
         :message="contactMessage"
         :error="contactError"
@@ -309,7 +463,7 @@ export default {
 }
 
 .main-content {
-  margin-top: 120px;
+  margin-top: 112px;
 }
 
 .hero-section {
@@ -518,6 +672,7 @@ button:disabled {
 }
 
 .home-search-band,
+.quick-links-section,
 .stats-band,
 .about-section,
 .news-feature-section,
@@ -581,6 +736,47 @@ button:disabled {
   background: #fff;
   border-color: #fff;
   color: #111;
+}
+
+.quick-links-section {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding-top: 1.2rem;
+}
+
+.quick-link-card {
+  align-items: flex-start;
+  background: #fff;
+  border: 1px solid rgba(16, 24, 18, 0.12);
+  border-radius: 8px;
+  color: #101812;
+  display: grid;
+  gap: 0.3rem;
+  justify-items: start;
+  min-height: 96px;
+  padding: 1rem;
+  text-align: left;
+}
+
+.quick-link-card span {
+  font-size: 1.05rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.quick-link-card small {
+  color: #65635e;
+  font-weight: 750;
+}
+
+.quick-link-card:hover {
+  background: #101812;
+  color: #fff;
+}
+
+.quick-link-card:hover small {
+  color: rgba(255, 255, 255, 0.74);
 }
 
 .stats-band {
@@ -771,6 +967,17 @@ button:disabled {
   font-size: 0.75rem;
   font-weight: 800;
   padding: 0.3rem 0.65rem;
+}
+
+.active-filter-pill {
+  background: #101812;
+  border-radius: 999px;
+  color: #fff;
+  display: inline-flex;
+  font-size: 0.82rem;
+  font-weight: 850;
+  margin-top: 0.8rem;
+  padding: 0.45rem 0.75rem;
 }
 
 .tile-grid,
@@ -973,6 +1180,163 @@ textarea {
   max-width: 1180px;
 }
 
+.doctrines-page {
+  background: #f7f4ee;
+}
+
+.doctrines-hero {
+  align-items: flex-end;
+  background: #f3f1ed;
+  display: grid;
+  min-height: 315px;
+  padding: clamp(3rem, 8vw, 8rem) clamp(1.25rem, 6vw, 6rem) 2.2rem;
+}
+
+.doctrines-hero h1 {
+  color: #171a17;
+  font-size: clamp(3rem, 7vw, 7rem);
+  font-weight: 950;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+  margin: 0;
+  max-width: 1050px;
+}
+
+.doctrine-link-grid {
+  background: #fff;
+  border-bottom: 1px solid rgba(16, 24, 18, 0.1);
+  border-top: 1px solid rgba(16, 24, 18, 0.1);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.doctrine-link-grid a {
+  align-items: center;
+  color: #111;
+  display: flex;
+  font-size: clamp(1.05rem, 1.8vw, 1.8rem);
+  font-weight: 900;
+  min-height: 120px;
+  padding: 1.25rem clamp(1rem, 3vw, 2.5rem);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.doctrine-link-grid a + a {
+  border-left: 1px solid rgba(16, 24, 18, 0.1);
+}
+
+.doctrine-link-grid a:hover {
+  background: #101812;
+  color: #fff;
+}
+
+.jump-panel {
+  align-items: center;
+  background: #101812;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1rem clamp(1.25rem, 6vw, 6rem);
+}
+
+.jump-panel strong {
+  color: #f5d740;
+  font-weight: 900;
+  margin-right: 0.75rem;
+}
+
+.jump-panel a {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: #fff;
+  font-weight: 800;
+  padding: 0.45rem 0.85rem;
+  text-decoration: none;
+}
+
+.doctrines-intro {
+  align-items: center;
+  display: grid;
+  gap: clamp(2rem, 5vw, 5rem);
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+  margin: 0 auto;
+  max-width: 1180px;
+  padding: clamp(3rem, 7vw, 7rem) 1rem;
+}
+
+.doctrines-intro h2 {
+  color: #111;
+  font-size: clamp(2.25rem, 5vw, 5rem);
+  font-weight: 950;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  margin: 0 0 1rem;
+}
+
+.doctrines-intro p {
+  color: #4a504b;
+  font-size: 1.08rem;
+  line-height: 1.75;
+  max-width: 720px;
+}
+
+.doctrines-logo-card {
+  background: #fff;
+  border: 1px solid rgba(16, 24, 18, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 24px 70px rgba(16, 24, 18, 0.08);
+  padding: 1.25rem;
+}
+
+.doctrines-logo-card img {
+  display: block;
+  object-fit: contain;
+  width: 100%;
+}
+
+.doctrine-detail-list {
+  display: grid;
+  gap: 1rem;
+  margin: 0 auto;
+  max-width: 1180px;
+  padding: 0 1rem clamp(3rem, 7vw, 7rem);
+}
+
+.doctrine-detail-card {
+  align-items: start;
+  background: #fff;
+  border: 1px solid rgba(16, 24, 18, 0.1);
+  border-radius: 8px;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 90px 1fr;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.doctrine-detail-card span {
+  color: #0d3b24;
+  font-size: 2.4rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.doctrine-detail-card h3 {
+  font-size: clamp(1.6rem, 3vw, 3rem);
+  font-weight: 950;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0 0 0.75rem;
+}
+
+.doctrine-detail-card p {
+  color: #4a504b;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
 .content-card {
   min-height: 260px;
 }
@@ -1114,6 +1478,10 @@ td small {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .quick-links-section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .featured-layout {
     grid-template-columns: 1fr;
   }
@@ -1127,6 +1495,14 @@ td small {
     align-items: flex-start;
     flex-direction: column;
   }
+
+  .doctrine-link-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .doctrines-intro {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 560px) {
@@ -1138,9 +1514,25 @@ td small {
     grid-template-columns: 1fr;
   }
 
+  .quick-links-section {
+    grid-template-columns: 1fr;
+  }
+
   .home-search {
     border-radius: 8px;
     display: grid;
+  }
+
+  .doctrine-link-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .doctrine-link-grid a {
+    min-height: 84px;
+  }
+
+  .doctrine-detail-card {
+    grid-template-columns: 1fr;
   }
 }
 </style>
