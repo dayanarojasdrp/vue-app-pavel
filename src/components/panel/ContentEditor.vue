@@ -37,6 +37,13 @@ export default {
     },
     titleField() {
       return this.config.fields?.title || 'titulo'
+    },
+    visibleItems() {
+      const sections = this.config.sectionFilter || []
+
+      if (!sections.length) return this.items
+
+      return this.items.filter((item) => sections.includes(item.seccion))
     }
   },
   watch: {
@@ -57,7 +64,12 @@ export default {
       this.error = ''
 
       try {
-        const response = await api.get(this.config.endpoint, { params: { per_page: 25 } })
+        const response = await api.get(this.config.endpoint, {
+          params: {
+            per_page: 25,
+            ...(this.config.params || {})
+          }
+        })
         this.items = normalizeList(response.data)
       } catch (error) {
         this.error = errorMessage(error)
@@ -102,7 +114,7 @@ export default {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     },
     payload() {
-      const payload = {}
+      const payload = { ...(this.config.defaults || {}) }
 
       for (const field of this.config.formFields || []) {
         const value = this.form[field.name]
@@ -264,7 +276,7 @@ export default {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in items" :key="item.id">
+          <tr v-for="item in visibleItems" :key="item.id">
             <td>{{ itemTitle(item, config.fields) }}</td>
             <td>{{ item.estado || (item.activo === false ? 'inactivo' : 'activo') }}</td>
             <td>{{ itemDate(item, config.fields) ? formatDate(itemDate(item, config.fields)) : '' }}</td>
@@ -277,7 +289,7 @@ export default {
               </div>
             </td>
           </tr>
-          <tr v-if="!items.length">
+          <tr v-if="!visibleItems.length">
             <td colspan="4">No hay contenido todavía.</td>
           </tr>
         </tbody>
