@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+const AUTH_TOKEN_KEY = 'cme_token';
+const LEGACY_AUTH_TOKEN_KEY = 'pavel_token';
+
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000/api',
   headers: {
@@ -9,7 +12,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('pavel_token');
+  const token = localStorage.getItem(AUTH_TOKEN_KEY) || localStorage.getItem(LEGACY_AUTH_TOKEN_KEY);
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -20,15 +23,17 @@ api.interceptors.request.use((config) => {
 
 export function setAuthToken(token) {
   if (token) {
-    localStorage.setItem('pavel_token', token);
+    localStorage.setItem(AUTH_TOKEN_KEY, token);
+    localStorage.removeItem(LEGACY_AUTH_TOKEN_KEY);
     return;
   }
 
-  localStorage.removeItem('pavel_token');
+  localStorage.removeItem(AUTH_TOKEN_KEY);
+  localStorage.removeItem(LEGACY_AUTH_TOKEN_KEY);
 }
 
 export function getAuthToken() {
-  return localStorage.getItem('pavel_token');
+  return localStorage.getItem(AUTH_TOKEN_KEY) || localStorage.getItem(LEGACY_AUTH_TOKEN_KEY);
 }
 
 export default api;
