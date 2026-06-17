@@ -2,6 +2,12 @@
 import api from '../../services/api'
 import { errorMessage } from '../../config/content'
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
+const PUBLIC_ASSET_BASE_URL = (
+  import.meta.env.VITE_PUBLIC_ASSET_URL ||
+  API_BASE_URL.replace(/\/api\/?$/, '')
+).replace(/\/$/, '')
+
 export default {
   name: 'UploadField',
   props: {
@@ -31,8 +37,9 @@ export default {
       if (this.localPreview) return this.localPreview
       if (!this.modelValue) return ''
       if (this.modelValue.startsWith('http')) return this.modelValue
-      if (this.modelValue.startsWith('/storage')) return `http://localhost:8000${this.modelValue}`
-      if (this.modelValue.startsWith('uploads/')) return `http://localhost:8000/storage/${this.modelValue}`
+      if (this.modelValue.startsWith('/storage')) return `${PUBLIC_ASSET_BASE_URL}${this.modelValue}`
+      if (this.modelValue.startsWith('storage/')) return `${PUBLIC_ASSET_BASE_URL}/${this.modelValue}`
+      if (this.modelValue.startsWith('uploads/')) return `${PUBLIC_ASSET_BASE_URL}/storage/${this.modelValue}`
       return this.modelValue
     }
   },
