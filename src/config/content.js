@@ -1,3 +1,102 @@
+export const MINISTRY_CATEGORIES = [
+  'Adultos y familias',
+  'Jóvenes',
+  'Niños',
+  'Líderes y ministros',
+  'Educación'
+]
+
+export const PAGE_SECTIONS = [
+  'inicio-hero',
+  'inicio-hero-etiqueta',
+  'inicio-hero-boton-principal',
+  'inicio-hero-boton-secundario',
+  'inicio-busqueda',
+  'inicio-busqueda-placeholder',
+  'inicio-busqueda-boton',
+  'inicio-enlaces',
+  'inicio-enlace-sobre',
+  'inicio-enlace-creencias',
+  'inicio-enlace-noticias',
+  'inicio-enlace-eventos',
+  'inicio-enlace-ministerios',
+  'inicio-enlace-misiones',
+  'inicio-enlace-donar',
+  'inicio-enlace-contacto',
+  'inicio-enlace-panel',
+  'inicio-sobre-etiqueta',
+  'inicio-sobre-boton',
+  'inicio-noticias',
+  'inicio-noticias-etiqueta',
+  'inicio-noticias-boton',
+  'inicio-eventos',
+  'inicio-eventos-etiqueta',
+  'inicio-eventos-boton',
+  'inicio-ministerios',
+  'inicio-ministerios-etiqueta',
+  'inicio-misiones',
+  'inicio-misiones-etiqueta',
+  'nav-inicio',
+  'nav-sobre',
+  'nav-creencias',
+  'nav-creencias-cardinales',
+  'nav-creencias-fundamentales',
+  'nav-creencias-normas',
+  'nav-ministerios',
+  'nav-ministerios-todos',
+  'nav-ministerios-adultos',
+  'nav-ministerios-jovenes',
+  'nav-ministerios-ninos',
+  'nav-ministerios-lideres',
+  'nav-ministerios-educacion',
+  'nav-misiones',
+  'nav-donar',
+  'nav-contacto',
+  'top-noticias',
+  'top-eventos',
+  'top-ministerios',
+  'top-panel',
+  'social-facebook',
+  'social-instagram',
+  'social-x',
+  'social-youtube',
+  'social-correo',
+  'buscar',
+  'buscar-etiqueta',
+  'buscar-cargando',
+  'buscar-vacio',
+  'listado-boton-actualizar',
+  'listado-vacio',
+  'evento-fecha-proximo',
+  'sobre',
+  'creencias',
+  'creencia-salvacion',
+  'creencia-bautismo',
+  'creencia-sanidad',
+  'creencia-venida',
+  'donar',
+  'contacto',
+  'contacto-etiqueta',
+  'contacto-nombre',
+  'contacto-email',
+  'contacto-telefono',
+  'contacto-asunto',
+  'contacto-mensaje',
+  'contacto-boton',
+  'contacto-boton-cargando',
+  'footer',
+  'footer-boton-panel',
+  'horarios',
+  'liderazgo',
+  'iglesia'
+]
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
+const PUBLIC_ASSET_BASE_URL = (
+  import.meta.env.VITE_PUBLIC_ASSET_URL ||
+  API_BASE_URL.replace(/\/api\/?$/, '')
+).replace(/\/$/, '')
+
 export const PUBLIC_ENDPOINTS = {
   noticias: {
     key: 'noticias',
@@ -7,7 +106,7 @@ export const PUBLIC_ENDPOINTS = {
     icon: 'fa-newspaper',
     description: 'Historias, anuncios y testimonios recientes de la comunidad.',
     fields: { title: 'titulo', body: 'resumen', date: 'publicado_en', tag: 'categoria' },
-    params: { estado: 'publicado', destacada: 1 }
+    params: { estado: 'publicado' }
   },
   eventos: {
     key: 'eventos',
@@ -17,7 +116,7 @@ export const PUBLIC_ENDPOINTS = {
     icon: 'fa-calendar-days',
     description: 'Reuniones, actividades especiales y convocatorias abiertas.',
     fields: { title: 'titulo', body: 'resumen', date: 'fecha_inicio', tag: 'ciudad' },
-    params: { proximos: 1, activo: 1 }
+    params: { activo: true, estado: 'programado', proximos: true }
   },
   ministerios: {
     key: 'ministerios',
@@ -27,7 +126,7 @@ export const PUBLIC_ENDPOINTS = {
     icon: 'fa-people-group',
     description: 'Áreas de servicio para familias, jóvenes, niños y líderes.',
     fields: { title: 'nombre', body: 'descripcion', tag: 'categoria' },
-    params: { activo: 1 }
+    params: { activo: true }
   },
   misiones: {
     key: 'misiones',
@@ -37,7 +136,7 @@ export const PUBLIC_ENDPOINTS = {
     icon: 'fa-earth-americas',
     description: 'Proyectos y llamados misioneros activos.',
     fields: { title: 'nombre', body: 'informacion', tag: 'categoria' },
-    params: { activo: 1 }
+    params: { activo: true }
   },
   recursos: {
     key: 'recursos',
@@ -47,7 +146,7 @@ export const PUBLIC_ENDPOINTS = {
     icon: 'fa-folder-open',
     description: 'Materiales y enlaces para iglesias, ministerios y discipulado.',
     fields: { title: 'nombre', body: 'informacion', tag: 'tipo' },
-    params: { activo: 1 }
+    params: { activo: true }
   },
   paginas: {
     key: 'paginas',
@@ -57,75 +156,133 @@ export const PUBLIC_ENDPOINTS = {
     icon: 'fa-church',
     description: 'Páginas institucionales publicadas desde la API.',
     fields: { title: 'titulo', body: 'resumen', tag: 'seccion' },
-    params: { activo: 1 }
+    params: { activo: true }
   }
 }
 
 export const FALLBACK_CONTENT = {
-  noticias: [
-    {
-      id: 'fallback-noticia-1',
-      titulo: 'Una comunidad enviada a servir',
-      resumen: 'Publica noticias desde el panel pastoral para que aparezcan destacadas en esta portada.',
-      categoria: 'Comunidad'
-    },
-    {
-      id: 'fallback-noticia-2',
-      titulo: 'Historias que edifican la iglesia',
-      resumen: 'Los testimonios, anuncios y novedades publicados en Laravel se mostrarán aquí.',
-      categoria: 'Noticias'
-    },
-    {
-      id: 'fallback-noticia-3',
-      titulo: 'Una iglesia activa en su ciudad',
-      resumen: 'Marca una noticia como destacada para ocupar este espacio principal.',
-      categoria: 'Misión local'
-    }
-  ],
-  eventos: [
-    {
-      id: 'fallback-evento-1',
-      titulo: 'Servicio dominical',
-      resumen: 'Añade eventos con fecha, lugar y descripción desde el panel.',
-      ciudad: 'Escambray'
-    },
-    {
-      id: 'fallback-evento-2',
-      titulo: 'Noche de oración',
-      resumen: 'Los eventos activos y próximos se ordenan automáticamente por fecha.',
-      ciudad: 'Templo principal'
-    }
-  ],
-  ministerios: [
-    { id: 'fallback-min-1', nombre: 'Familias', descripcion: 'Acompañamiento pastoral y formación para el hogar.', categoria: 'Adultos' },
-    { id: 'fallback-min-2', nombre: 'Jóvenes', descripcion: 'Espacios de fe, amistad, discipulado y servicio.', categoria: 'Juventud' },
-    { id: 'fallback-min-3', nombre: 'Niños', descripcion: 'Enseñanza bíblica cuidadosa para los más pequeños.', categoria: 'Infantil' }
-  ],
-  misiones: [
-    { id: 'fallback-mis-1', nombre: 'Alcance local', informacion: 'Proyectos de compasión y evangelismo en la comunidad.', categoria: 'Local' },
-    { id: 'fallback-mis-2', nombre: 'Misiones globales', informacion: 'Una iglesia que ora, envía y participa en la misión.', categoria: 'Global' }
-  ],
-  recursos: [
-    { id: 'fallback-rec-1', nombre: 'Materiales de discipulado', informacion: 'Recursos preparados para el crecimiento espiritual.', tipo: 'Descarga' },
-    { id: 'fallback-rec-2', nombre: 'Herramientas ministeriales', informacion: 'Guías, enlaces y documentos para equipos de servicio.', tipo: 'Guía' }
-  ],
-  paginas: [
-    {
-      id: 'fallback-pag-1',
-      titulo: 'Centro Misionero Escambray',
-      resumen: 'Somos una comunidad cristiana comprometida con la Palabra, la adoración, el discipulado y la misión.',
-      seccion: 'Sobre'
-    }
-  ]
+  noticias: [],
+  eventos: [],
+  ministerios: [],
+  misiones: [],
+  recursos: [],
+  paginas: []
 }
 
+const PAGE_FORM_FIELDS = [
+  { name: 'titulo', label: 'Título', type: 'text', required: true },
+  { name: 'slug', label: 'Slug', type: 'text' },
+  { name: 'resumen', label: 'Resumen', type: 'textarea' },
+  { name: 'contenido', label: 'Contenido', type: 'textarea', required: true },
+  { name: 'imagen', label: 'Imagen', type: 'image' },
+  { name: 'seccion', label: 'Sección', type: 'select', options: PAGE_SECTIONS },
+  { name: 'orden', label: 'Orden', type: 'number' },
+  { name: 'activo', label: 'Activo', type: 'checkbox' },
+  { name: 'meta_title', label: 'Meta title', type: 'text' },
+  { name: 'meta_description', label: 'Meta description', type: 'textarea' }
+]
+
+const SOCIAL_LINK_SECTIONS = [
+  'social-facebook',
+  'social-instagram',
+  'social-x',
+  'social-youtube',
+  'social-correo'
+]
+
+const SOCIAL_LINK_FIELDS = [
+  { name: 'titulo', label: 'Nombre visible', type: 'text', required: true },
+  { name: 'slug', label: 'Slug', type: 'text' },
+  { name: 'contenido', label: 'Descripción interna', type: 'textarea', required: true },
+  { name: 'seccion', label: 'Red social', type: 'select', options: SOCIAL_LINK_SECTIONS, required: true },
+  { name: 'meta_title', label: 'URL o correo', type: 'text', required: true },
+  { name: 'activo', label: 'Activo', type: 'checkbox' },
+  { name: 'orden', label: 'Orden', type: 'number' }
+]
+
+const PUBLIC_TEXT_SECTIONS = PAGE_SECTIONS.filter((section) => (
+  section.startsWith('inicio-') ||
+  section.startsWith('nav-') ||
+  section.startsWith('top-') ||
+  section.startsWith('buscar') ||
+  section.startsWith('listado-') ||
+  section.startsWith('evento-fecha-') ||
+  section.startsWith('contacto-') ||
+  section.startsWith('footer')
+)).filter((section) => !SOCIAL_LINK_SECTIONS.includes(section))
+
 export const ADMIN_CONFIG = {
+  sobrePagina: {
+    ...PUBLIC_ENDPOINTS.paginas,
+    key: 'sobre',
+    title: 'Sobre público',
+    singular: 'bloque de sobre',
+    description: 'Historia, misión, liderazgo, estructura y datos de la iglesia.',
+    params: { seccion: 'sobre' },
+    defaults: { seccion: 'sobre', activo: true, orden: 0 },
+    formFields: PAGE_FORM_FIELDS
+      .filter((field) => field.name !== 'seccion')
+      .map((field) => (field.name === 'imagen' ? { ...field, label: 'Foto de la iglesia o liderazgo' } : field))
+  },
+  contactoPagina: {
+    ...PUBLIC_ENDPOINTS.paginas,
+    key: 'contacto',
+    title: 'Contacto público',
+    singular: 'sección de contacto',
+    params: { seccion: 'contacto' },
+    defaults: { seccion: 'contacto', activo: true, orden: 0 },
+    formFields: PAGE_FORM_FIELDS.filter((field) => field.name !== 'seccion')
+  },
+  donarPagina: {
+    ...PUBLIC_ENDPOINTS.paginas,
+    key: 'donar',
+    title: 'Donar / QR',
+    singular: 'sección de donar',
+    params: { seccion: 'donar' },
+    defaults: { seccion: 'donar', activo: true, orden: 0 },
+    formFields: PAGE_FORM_FIELDS
+      .filter((field) => field.name !== 'seccion')
+      .map((field) => (field.name === 'imagen' ? { ...field, label: 'Foto del código QR' } : field))
+  },
+  redesSociales: {
+    ...PUBLIC_ENDPOINTS.paginas,
+    key: 'redes-sociales',
+    title: 'Redes sociales',
+    singular: 'enlace social',
+    description: 'Links de Facebook, Instagram, X, YouTube y correo de la barra superior.',
+    params: {},
+    sectionFilter: SOCIAL_LINK_SECTIONS,
+    defaults: { activo: true, orden: 0 },
+    formFields: SOCIAL_LINK_FIELDS
+  },
+  textosPublicos: {
+    ...PUBLIC_ENDPOINTS.paginas,
+    key: 'textos-publicos',
+    title: 'Textos públicos',
+    singular: 'texto público',
+    description: 'Etiquetas, botones, navegación, búsqueda, footer y textos pequeños del sitio.',
+    params: {},
+    sectionFilter: PUBLIC_TEXT_SECTIONS,
+    defaults: { activo: true, orden: 0 },
+    formFields: [
+      { name: 'titulo', label: 'Texto principal', type: 'text', required: true },
+      { name: 'slug', label: 'Slug', type: 'text' },
+      { name: 'resumen', label: 'Texto secundario', type: 'textarea' },
+      { name: 'contenido', label: 'Contenido o descripción', type: 'textarea', required: true },
+      { name: 'seccion', label: 'Lugar donde aparece', type: 'select', options: PUBLIC_TEXT_SECTIONS, required: true },
+      { name: 'activo', label: 'Activo', type: 'checkbox' },
+      { name: 'orden', label: 'Orden', type: 'number' },
+      { name: 'meta_title', label: 'Dato extra corto', type: 'text' },
+      { name: 'meta_description', label: 'Dato extra largo', type: 'textarea' }
+    ]
+  },
   noticias: {
     ...PUBLIC_ENDPOINTS.noticias,
     params: {},
     defaults: { estado: 'borrador', destacada: false },
     formFields: [
       { name: 'titulo', label: 'Título', type: 'text', required: true },
+      { name: 'slug', label: 'Slug', type: 'text' },
       { name: 'resumen', label: 'Resumen', type: 'textarea' },
       { name: 'contenido', label: 'Contenido', type: 'textarea', required: true },
       { name: 'imagen', label: 'Imagen', type: 'image' },
@@ -145,6 +302,7 @@ export const ADMIN_CONFIG = {
     defaults: { estado: 'borrador', activo: true, destacado: false },
     formFields: [
       { name: 'titulo', label: 'Título', type: 'text', required: true },
+      { name: 'slug', label: 'Slug', type: 'text' },
       { name: 'resumen', label: 'Resumen', type: 'textarea' },
       { name: 'descripcion', label: 'Descripción', type: 'textarea', required: true },
       { name: 'imagen', label: 'Imagen', type: 'image' },
@@ -167,9 +325,10 @@ export const ADMIN_CONFIG = {
     defaults: { activo: true, orden: 0 },
     formFields: [
       { name: 'nombre', label: 'Nombre', type: 'text', required: true },
+      { name: 'slug', label: 'Slug', type: 'text' },
       { name: 'descripcion', label: 'Descripción', type: 'textarea' },
       { name: 'imagen', label: 'Imagen', type: 'image' },
-      { name: 'categoria', label: 'Categoría', type: 'text' },
+      { name: 'categoria', label: 'Categoría', type: 'select', options: MINISTRY_CATEGORIES },
       { name: 'orden', label: 'Orden', type: 'number' },
       { name: 'activo', label: 'Activo', type: 'checkbox' },
       { name: 'url_externa', label: 'URL externa', type: 'url' }
@@ -181,6 +340,7 @@ export const ADMIN_CONFIG = {
     defaults: { activo: true, orden: 0 },
     formFields: [
       { name: 'nombre', label: 'Nombre', type: 'text', required: true },
+      { name: 'slug', label: 'Slug', type: 'text' },
       { name: 'informacion', label: 'Información', type: 'textarea', required: true },
       { name: 'imagen', label: 'Imagen', type: 'image' },
       { name: 'categoria', label: 'Categoría', type: 'text' },
@@ -195,6 +355,7 @@ export const ADMIN_CONFIG = {
     defaults: { activo: true, descargable: false, destacado: false, orden: 0 },
     formFields: [
       { name: 'nombre', label: 'Nombre', type: 'text', required: true },
+      { name: 'slug', label: 'Slug', type: 'text' },
       { name: 'informacion', label: 'Información', type: 'textarea', required: true },
       { name: 'imagen', label: 'Imagen', type: 'image' },
       { name: 'categoria', label: 'Categoría', type: 'text' },
@@ -211,17 +372,7 @@ export const ADMIN_CONFIG = {
     ...PUBLIC_ENDPOINTS.paginas,
     params: {},
     defaults: { activo: true, orden: 0 },
-    formFields: [
-      { name: 'titulo', label: 'Título', type: 'text', required: true },
-      { name: 'resumen', label: 'Resumen', type: 'textarea' },
-      { name: 'contenido', label: 'Contenido', type: 'textarea', required: true },
-      { name: 'imagen', label: 'Imagen', type: 'image' },
-      { name: 'seccion', label: 'Sección', type: 'text' },
-      { name: 'orden', label: 'Orden', type: 'number' },
-      { name: 'activo', label: 'Activo', type: 'checkbox' },
-      { name: 'meta_title', label: 'Meta title', type: 'text' },
-      { name: 'meta_description', label: 'Meta description', type: 'textarea' }
-    ]
+    formFields: PAGE_FORM_FIELDS
   }
 }
 
@@ -235,7 +386,7 @@ export function itemTitle(item, fields = {}) {
 }
 
 export function itemBody(item, fields = {}) {
-  return item?.[fields.body] || item?.resumen || item?.descripcion || item?.informacion || item?.mensaje || ''
+  return item?.[fields.body] || item?.resumen || item?.contenido || item?.descripcion || item?.informacion || item?.mensaje || ''
 }
 
 export function itemMeta(item, fields = {}) {
@@ -257,10 +408,23 @@ export function formatDate(value) {
 
 export function imageUrl(item) {
   if (!item?.imagen) return ''
-  if (item.imagen.startsWith('http')) return item.imagen
-  if (item.imagen.startsWith('/storage')) return `http://localhost:8000${item.imagen}`
-  if (item.imagen.startsWith('uploads/')) return `http://localhost:8000/storage/${item.imagen}`
-  return item.imagen
+
+  const rawImage = String(item.imagen).trim()
+
+  if (!rawImage) return ''
+  if (/^https?:\/\//i.test(rawImage)) return encodeURI(rawImage)
+
+  const cleanPath = rawImage.replace(/^\/+/, '')
+
+  if (cleanPath.startsWith('storage/')) {
+    return encodeURI(`${PUBLIC_ASSET_BASE_URL}/${cleanPath}`)
+  }
+
+  if (cleanPath.startsWith('uploads/')) {
+    return encodeURI(`${PUBLIC_ASSET_BASE_URL}/storage/${cleanPath}`)
+  }
+
+  return encodeURI(`${PUBLIC_ASSET_BASE_URL}/${cleanPath}`)
 }
 
 export function errorMessage(error) {
