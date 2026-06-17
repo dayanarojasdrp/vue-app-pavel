@@ -15,6 +15,18 @@ export default {
     error: {
       type: String,
       default: ''
+    },
+    filterLabel: {
+      type: String,
+      default: ''
+    },
+    headerPage: {
+      type: Object,
+      default: null
+    },
+    uiPages: {
+      type: Object,
+      default: () => ({})
     }
   },
   emits: ['refresh'],
@@ -32,6 +44,15 @@ export default {
     },
     date(item) {
       return itemDate(item, this.config.fields)
+    },
+    headerTitle() {
+      return this.headerPage ? itemTitle(this.headerPage, { title: 'titulo' }) : this.config.title
+    },
+    headerDescription() {
+      return this.headerPage ? itemBody(this.headerPage, { body: 'resumen' }) || this.config.description : this.config.description
+    },
+    uiText(key, fallback) {
+      return this.uiPages[key]?.titulo || this.uiPages[key]?.resumen || this.uiPages[key]?.contenido || fallback
     }
   }
 }
@@ -41,14 +62,18 @@ export default {
   <section class="content-section">
     <div class="section-heading">
       <div>
-        <p class="eyebrow"><span class="eyebrow-mark"></span> {{ config.title }}</p>
-        <h2>{{ config.description }}</h2>
+        <p class="eyebrow"><span class="eyebrow-mark"></span> {{ headerTitle() }}</p>
+        <h2>{{ headerDescription() }}</h2>
+        <span v-if="filterLabel" class="active-filter-pill">{{ filterLabel }}</span>
       </div>
-      <button class="secondary" @click="$emit('refresh')">Actualizar</button>
+      <button class="secondary" @click="$emit('refresh')">{{ uiText('refresh', 'Actualizar') }}</button>
     </div>
 
     <p v-if="error" class="status">{{ error }}</p>
-    <div class="content-grid">
+    <p v-else-if="!items.length" class="status">
+      {{ uiText('empty', 'Todavía no hay contenido publicado en esta sección.') }}
+    </p>
+    <div v-else class="content-grid">
       <article v-for="item in items" :key="item.id || item.slug" class="content-card">
         <img v-if="imageUrl(item)" :src="imageUrl(item)" :alt="title(item)" />
         <div v-else class="image-fallback small"><span>CME</span></div>
