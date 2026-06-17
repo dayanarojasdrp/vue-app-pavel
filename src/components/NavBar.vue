@@ -2,8 +2,12 @@
   <header class="navbar">
     <nav class="nav-container">
       <a href="#" class="logo-button" @click.prevent="go('inicio')">
-        <span class="brand-monogram" aria-hidden="true">CME</span>
-        <span class="sr-only">Centro Misionero Escambray</span>
+        <img
+          class="header-logo-mark"
+          src="@/assets/logo-cme-mark-cropped.png"
+          alt="Centro Misionero Escambray"
+        >
+        <span class="sr-only">{{ pageTitle('inicio', 'Centro Misionero Escambray') }}</span>
       </a>
       <ul class="nav-links oval-group">
         <li>
@@ -12,16 +16,16 @@
     :class="{ active: activeItem === 'inicio' }"
     @click.prevent="go('inicio')"
   >
-    INICIO
+    {{ pageTitle('inicio', 'INICIO') }}
   </a>
 </li>
         <li>
   <a
     href="#"
     :class="{ active: activeItem === 'sobre' }"
-    @click.prevent="go('paginas')"
+    @click.prevent="go('paginas', 'sobre', { filters: { seccion: 'sobre' }, filterLabel: 'Sobre' })"
   >
-    SOBRE
+    {{ pageTitle('sobre', 'SOBRE') }}
   </a>
 </li>
      <li class="dropdown">
@@ -30,12 +34,12 @@
     :class="{ active: activeItem === 'creencias' }"
     @click.prevent="toggleDropdown('creencias'); setActiveItem('creencias')"
   >
-    CREENCIAS<span class="arrow" aria-hidden="true"></span>
+    {{ pageTitle('creencias', 'CREENCIAS') }}<span class="arrow" aria-hidden="true"></span>
   </a>
  <ul v-if="activeDropdown === 'creencias'" class="submenu">
-  <li><a href="#" @click.prevent="go('paginas', 'creencias')">Nuestras cuatro verdades cardinales</a></li>
-  <li><a href="#" @click.prevent="go('paginas', 'creencias')">Declaración de verdades fundamentales</a></li>
-  <li><a href="#" @click.prevent="go('paginas', 'creencias')">Normas doctrinales y declaraciones</a></li>
+  <li><a href="#" @click.prevent="go('creencias', 'creencias')">{{ pageTitle('creenciasCardinales', 'Nuestras cuatro verdades cardinales') }}</a></li>
+  <li><a href="#" @click.prevent="go('paginas', 'creencias', { filters: { seccion: 'creencias' }, filterLabel: pageTitle('creenciasFundamentales', 'Declaración de verdades fundamentales') })">{{ pageTitle('creenciasFundamentales', 'Declaración de verdades fundamentales') }}</a></li>
+  <li><a href="#" @click.prevent="go('paginas', 'creencias', { filters: { seccion: 'creencias' }, filterLabel: pageTitle('creenciasNormas', 'Normas doctrinales y declaraciones') })">{{ pageTitle('creenciasNormas', 'Normas doctrinales y declaraciones') }}</a></li>
 </ul>
 
 </li>
@@ -45,15 +49,15 @@
    :class="{ active: activeItem === 'ministerios' }"
     @click.prevent="toggleDropdown('ministerios'); setActiveItem('ministerios')"
   >
-    MINISTERIOS<span class="arrow" aria-hidden="true"></span>
+    {{ pageTitle('ministerios', 'MINISTERIOS') }}<span class="arrow" aria-hidden="true"></span>
   </a>
 <ul v-if="activeDropdown === 'ministerios'" class="submenu">
-  <li><a href="#" @click.prevent="go('ministerios', 'ministerios')">Todos los ministerios</a></li>
-  <li><a href="#" @click.prevent="go('ministerios', 'ministerios')">Adultos y familias</a></li>
-  <li><a href="#" @click.prevent="go('ministerios', 'ministerios')">Jóvenes</a></li>
-  <li><a href="#" @click.prevent="go('ministerios', 'ministerios')">Niños</a></li>
-  <li><a href="#" @click.prevent="go('ministerios', 'ministerios')">Líderes y ministros</a></li>
-  <li><a href="#" @click.prevent="go('ministerios', 'ministerios')">Educación</a></li>
+  <li><a href="#" @click.prevent="go('ministerios', 'ministerios')">{{ pageTitle('ministeriosTodos', 'Todos los ministerios') }}</a></li>
+  <li><a href="#" @click.prevent="go('ministerios', 'ministerios', { filters: { categoria: 'Adultos y familias' }, filterLabel: pageTitle('ministeriosAdultos', 'Adultos y familias') })">{{ pageTitle('ministeriosAdultos', 'Adultos y familias') }}</a></li>
+  <li><a href="#" @click.prevent="go('ministerios', 'ministerios', { filters: { categoria: 'Jóvenes' }, filterLabel: pageTitle('ministeriosJovenes', 'Jóvenes') })">{{ pageTitle('ministeriosJovenes', 'Jóvenes') }}</a></li>
+  <li><a href="#" @click.prevent="go('ministerios', 'ministerios', { filters: { categoria: 'Niños' }, filterLabel: pageTitle('ministeriosNinos', 'Niños') })">{{ pageTitle('ministeriosNinos', 'Niños') }}</a></li>
+  <li><a href="#" @click.prevent="go('ministerios', 'ministerios', { filters: { categoria: 'Líderes y ministros' }, filterLabel: pageTitle('ministeriosLideres', 'Líderes y ministros') })">{{ pageTitle('ministeriosLideres', 'Líderes y ministros') }}</a></li>
+  <li><a href="#" @click.prevent="go('ministerios', 'ministerios', { filters: { categoria: 'Educación' }, filterLabel: pageTitle('ministeriosEducacion', 'Educación') })">{{ pageTitle('ministeriosEducacion', 'Educación') }}</a></li>
 </ul>
 
 
@@ -64,16 +68,16 @@
     :class="{ active: activeItem === 'misiones' }"
     @click.prevent="go('misiones')"
   >
-    MISIONES
+    {{ pageTitle('misiones', 'MISIONES') }}
   </a>
 </li>
         <li>
   <a
      href="#"
     :class="{ active: activeItem === 'donar' }"
-    @click.prevent="go('contacto')"
+    @click.prevent="go('paginas', 'donar', { filters: { seccion: 'donar' }, filterLabel: 'Donar' })"
   >
-    DONAR
+    {{ pageTitle('donar', 'DONAR') }}
   </a>
 </li>
         <li>
@@ -82,7 +86,7 @@
     :class="{ active: activeItem === 'contacto' }"
     @click.prevent="go('contacto')"
   >
-    CONTACTO
+    {{ pageTitle('contacto', 'CONTACTO') }}
   </a>
 </li>
       </ul>
@@ -93,6 +97,12 @@
 <script>
 export default {
   name: 'NavBar',
+  props: {
+    pages: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   emits: ['navigate'],
   data() {
     return {
@@ -101,9 +111,13 @@ export default {
     }
   },
   methods: {
- go(view, parent = null) {
+ pageTitle(key, fallback) {
+  return this.pages[key]?.titulo || fallback;
+ },
+ go(view, parent = null, options = {}) {
   this.setActiveItem(view, parent);
-  this.$emit('navigate', view);
+  this.activeDropdown = null;
+  this.$emit('navigate', { view, ...options });
  },
  setActiveItem(name, parent = null) {
   // Si la opción tiene un padre (viene de un submenú), marcamos el padre como activo
@@ -151,8 +165,8 @@ export default {
   background-color: #fff;
   border-bottom: 1px solid rgba(16, 24, 20, 0.1);
   box-shadow: none;
-  min-height: 74px;
-  padding: 0.55rem clamp(1.25rem, 3vw, 4rem);
+  min-height: 64px;
+  padding: 0.25rem clamp(1.25rem, 3vw, 4rem);
 }
 
 .nav-container {
@@ -241,7 +255,7 @@ export default {
   background-color: transparent;
   color: #162119;
   text-decoration: none;
-  padding: 0.52rem clamp(0.85rem, 1.35vw, 1.35rem);
+  padding: 0.42rem clamp(0.82rem, 1.28vw, 1.28rem);
   display: flex;
   align-items: center;
   border-radius: 999px; /* ← esto hace que el fondo sea ovalado */
@@ -261,7 +275,7 @@ export default {
 .oval-group {
   border: 1.5px solid #222622;
   border-radius: 999px;
-  padding: 0.22rem clamp(0.6rem, 1vw, 1.1rem);
+  padding: 0.16rem clamp(0.55rem, 0.9vw, 1rem);
   display: flex;
   gap: clamp(0.2rem, 0.8vw, 1rem);
   background-color: #fff;
@@ -273,32 +287,19 @@ export default {
 .logo-button {
   align-items: center;
   display: flex;
-  flex: 0 0 clamp(95px, 10vw, 130px);
+  flex: 0 0 clamp(112px, 9vw, 142px);
   gap: 0;
+  justify-content: center;
+  overflow: hidden;
   text-decoration: none;
 }
 
-.brand-monogram {
-  color: #050505;
-  display: inline-block;
-  font-size: clamp(2.3rem, 4.2vw, 4.8rem);
-  font-weight: 950;
-  letter-spacing: -0.15em;
-  line-height: 0.82;
-  padding-right: 0.35em;
-  position: relative;
-}
-
-.brand-monogram::after {
-  background: linear-gradient(180deg, #f5d740, #0a6d32);
-  border-radius: 999px;
-  bottom: 0.03em;
-  content: "";
-  height: 0.5em;
-  left: 0.45em;
-  position: absolute;
-  transform: rotate(18deg);
-  width: 0.08em;
+.header-logo-mark {
+  display: block;
+  height: clamp(60px, 5vw, 76px);
+  object-fit: contain;
+  object-position: center;
+  width: clamp(106px, 8.8vw, 134px);
 }
 
 .sr-only {
