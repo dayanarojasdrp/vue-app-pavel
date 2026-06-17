@@ -144,7 +144,7 @@ export default {
           :class="{ active: activeKey === 'contactos' }"
           @click="selectTab('contactos')"
         >
-          Contactos
+          Mensajes recibidos
         </button>
       </aside>
 
@@ -164,7 +164,7 @@ export default {
         <div v-else class="contacts-panel">
           <div class="editor-header">
             <div>
-              <p class="eyebrow"><span class="eyebrow-mark"></span> Contactos</p>
+              <p class="eyebrow"><span class="eyebrow-mark"></span> Mensajes recibidos</p>
               <h3>Mensajes recibidos</h3>
             </div>
             <button class="secondary" @click="fetchContacts">Actualizar</button>
