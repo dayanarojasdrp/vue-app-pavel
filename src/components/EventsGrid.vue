@@ -7,6 +7,10 @@ export default {
     items: {
       type: Array,
       required: true
+    },
+    dateFallback: {
+      type: String,
+      default: 'Próximo'
     }
   },
   methods: {
@@ -27,7 +31,7 @@ export default {
 <template>
   <div class="stack-list">
     <article v-for="item in items" :key="item.id || item.slug" class="stack-item">
-      <span class="date-pill">{{ date(item) ? formatDate(date(item)) : 'Próximo' }}</span>
+      <span class="date-pill">{{ date(item) ? formatDate(date(item)) : dateFallback }}</span>
       <h3>{{ title(item) }}</h3>
       <p>{{ body(item) }}</p>
     </article>
