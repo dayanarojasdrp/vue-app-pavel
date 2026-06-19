@@ -91,7 +91,7 @@ export const PAGE_SECTIONS = [
   'iglesia'
 ]
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://centromisionero.infinityfreeapp.com/api'
 const PUBLIC_ASSET_BASE_URL = (
   import.meta.env.VITE_PUBLIC_ASSET_URL ||
   API_BASE_URL.replace(/\/api\/?$/, '')
