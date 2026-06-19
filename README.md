@@ -84,7 +84,7 @@ src/
 Create a `.env` file in the root of the project and add:
 
 ```env
-VITE_API_URL=http://centromisionero.infinityfreeapp.com/api
+VITE_API_URL=https://centromisionero.infinityfreeapp.com/api
 ```
 
 The frontend communicates with the Laravel backend through this API URL.

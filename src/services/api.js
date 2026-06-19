@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const AUTH_TOKEN_KEY = 'cme_token';
 const LEGACY_AUTH_TOKEN_KEY = 'pavel_token';
-const DEFAULT_API_URL = 'http://centromisionero.infinityfreeapp.com/api';
+const DEFAULT_API_URL = 'https://centromisionero.infinityfreeapp.com/api';
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || DEFAULT_API_URL,
