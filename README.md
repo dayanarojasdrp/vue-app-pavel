@@ -84,7 +84,7 @@ src/
 Create a `.env` file in the root of the project and add:
 
 ```env
-VITE_API_URL=http://localhost:8000/api
+VITE_API_URL=http://centromisionero.infinityfreeapp.com/api
 ```
 
 The frontend communicates with the Laravel backend through this API URL.
@@ -170,4 +170,3 @@ This project was created as a real-world church communication platform. Its goal
 ## Author
 
 Developed by Dayana Rojas
-
