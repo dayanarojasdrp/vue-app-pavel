@@ -2,11 +2,20 @@
 import api from '../../services/api'
 import { errorMessage } from '../../config/content'
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://centromisionero.infinityfreeapp.com/api'
-const PUBLIC_ASSET_BASE_URL = (
-  import.meta.env.VITE_PUBLIC_ASSET_URL ||
-  API_BASE_URL.replace(/\/api\/?$/, '')
-).replace(/\/$/, '')
+const DEFAULT_API_URL = 'https://centromisionero.infinityfreeapp.com/api'
+const DEFAULT_ASSET_URL = 'https://centromisionero.infinityfreeapp.com'
+
+function secureProductionUrl(value, fallback) {
+  return String(value || fallback)
+    .replace(/^http:\/\/centromisionero\.infinityfreeapp\.com/i, 'https://centromisionero.infinityfreeapp.com')
+    .replace(/\/$/, '')
+}
+
+const API_BASE_URL = secureProductionUrl(import.meta.env.VITE_API_URL, DEFAULT_API_URL)
+const PUBLIC_ASSET_BASE_URL = secureProductionUrl(
+  import.meta.env.VITE_PUBLIC_ASSET_URL,
+  API_BASE_URL.replace(/\/api\/?$/, '') || DEFAULT_ASSET_URL
+)
 
 export default {
   name: 'UploadField',

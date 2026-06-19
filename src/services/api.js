@@ -4,8 +4,14 @@ const AUTH_TOKEN_KEY = 'cme_token';
 const LEGACY_AUTH_TOKEN_KEY = 'pavel_token';
 const DEFAULT_API_URL = 'https://centromisionero.infinityfreeapp.com/api';
 
+function secureProductionUrl(value) {
+  return String(value || DEFAULT_API_URL)
+    .replace(/^http:\/\/centromisionero\.infinityfreeapp\.com/i, 'https://centromisionero.infinityfreeapp.com')
+    .replace(/\/$/, '');
+}
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || DEFAULT_API_URL,
+  baseURL: secureProductionUrl(import.meta.env.VITE_API_URL),
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'
